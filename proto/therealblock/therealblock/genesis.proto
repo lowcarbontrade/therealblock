@@ -1,0 +1,12 @@
+syntax = "proto3";
+package realblocknetwork.therealblock.therealblock;
+
+import "gogoproto/gogo.proto";
+import "therealblock/therealblock/params.proto";
+
+option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
+
+// GenesisState defines the therealblock module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

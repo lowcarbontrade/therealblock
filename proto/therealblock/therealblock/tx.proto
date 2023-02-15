@@ -1,0 +1,7 @@
+syntax = "proto3";
+package realblocknetwork.therealblock.therealblock;
+
+option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
+
+// Msg defines the Msg service.
+service Msg {}
