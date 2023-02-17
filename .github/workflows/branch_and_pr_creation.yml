@@ -1,0 +1,13 @@
+name: Create branch and pr on issue assigned
+
+run-name: Create branch and pr for issue ${{ github.event.issue.number }}
+
+on:
+  issues: 
+    types: [assigned]
+
+jobs:
+  call_branch_pr_creation:
+    uses: realblocknetwork/workflows-automation/.github/workflows/branch_and_pr_creation_on_assigned.yml@main
+    secrets:
+      token: ${{ github.token }}
