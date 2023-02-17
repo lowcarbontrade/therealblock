@@ -10,4 +10,4 @@ jobs:
   call_branch_pr_creation:
     uses: realblocknetwork/workflows-automation/.github/workflows/branch_and_pr_creation_on_assigned.yml@main
     secrets:
-      token: ${{ github.token }}
+      token: ${{ secrets.GITHUB_TOKEN }}
