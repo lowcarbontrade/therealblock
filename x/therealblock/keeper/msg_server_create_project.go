@@ -18,8 +18,9 @@ func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProj
 		ctx,
 		project,
 	)
-
+	//TODO find out how to get the signer address of the transaction
 	return &types.MsgCreateProjectResponse{
-		Id: id,
+		Id:      id,
+		Address: msg.Sponsor,
 	}, nil
 }
