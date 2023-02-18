@@ -4,6 +4,7 @@ package realblocknetwork.therealblock.therealblock;
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
+import "therealblock/therealblock/project.proto";
 
 option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
 
@@ -14,8 +15,11 @@ service Msg {
 message MsgCreateProject {
   string                   sponsor = 1;
   cosmos.base.v1beta1.Coin target  = 2 [(gogoproto.nullable) = false];
-  string                   stages  = 3;
+  repeated Stage                   stages  = 3;
 }
 
-message MsgCreateProjectResponse {}
+message MsgCreateProjectResponse {
+  uint64                    id      = 1;
+  string                    address = 2;
+}
 

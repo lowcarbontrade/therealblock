@@ -23,7 +23,11 @@ func CmdCreateProject() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			argStages := args[1]
+
+			argStages, err := types.ParseStageNormalized(args[1])
+			if err != nil {
+				return err
+			}
 
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {

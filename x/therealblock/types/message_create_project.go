@@ -9,7 +9,7 @@ const TypeMsgCreateProject = "create_project"
 
 var _ sdk.Msg = &MsgCreateProject{}
 
-func NewMsgCreateProject(sponsor string, target sdk.Coin, stages string) *MsgCreateProject {
+func NewMsgCreateProject(sponsor string, target sdk.Coin, stages []*Stage) *MsgCreateProject {
 	return &MsgCreateProject{
 		Sponsor: sponsor,
 		Target:  target,
