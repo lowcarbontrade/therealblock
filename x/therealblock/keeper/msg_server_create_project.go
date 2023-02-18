@@ -9,9 +9,18 @@ import (
 
 func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProject) (*types.MsgCreateProjectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// TODO: Handling the message
-	_ = ctx
-
-	return &types.MsgCreateProjectResponse{}, nil
+	var project = types.Project{
+		Stages:  msg.Stages,
+		Sponsor: msg.Sponsor,
+		Target:  msg.Target,
+	}
+	id := k.AppendProject(
+		ctx,
+		project,
+	)
+	//TODO find out how to get the signer address of the transaction
+	return &types.MsgCreateProjectResponse{
+		Id:      id,
+		Address: msg.Sponsor,
+	}, nil
 }

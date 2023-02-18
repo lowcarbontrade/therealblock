@@ -74954,6 +74954,12 @@ definitions:
       the connection handshake.
   realblocknetwork.therealblock.therealblock.MsgCreateProjectResponse:
     type: object
+    properties:
+      id:
+        type: string
+        format: uint64
+      address:
+        type: string
   realblocknetwork.therealblock.therealblock.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -74964,3 +74970,11 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
+  realblocknetwork.therealblock.therealblock.Stage:
+    type: object
+    properties:
+      name:
+        type: string
+      allocation:
+        type: string
+        format: uint64

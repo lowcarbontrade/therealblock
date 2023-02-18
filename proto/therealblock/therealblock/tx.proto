@@ -13,9 +13,9 @@ service Msg {
   rpc CreateProject (MsgCreateProject) returns (MsgCreateProjectResponse);
 }
 message MsgCreateProject {
-  string                   sponsor = 1;
-  cosmos.base.v1beta1.Coin target  = 2 [(gogoproto.nullable) = false];
-  repeated Stage                   stages  = 3;
+  string                          sponsor = 1;
+  cosmos.base.v1beta1.Coin        target  = 2 [(gogoproto.nullable) = false];
+  repeated Stage                  stages  = 3;
 }
 
 message MsgCreateProjectResponse {
