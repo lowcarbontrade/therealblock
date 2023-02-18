@@ -1,0 +1,27 @@
+syntax = "proto3";
+package realblocknetwork.therealblock.therealblock;
+
+option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
+
+message Project {
+  
+  uint64 id = 1; 
+  string sponsor = 2; 
+  uint64 target = 3; 
+  uint64 current = 4; 
+  string state = 5; 
+  repeated Investor investors = 6; 
+  repeated Stage stages = 7; 
+}
+
+message Investor {
+    
+    string address = 1; 
+    uint64 equity = 2; 
+}
+
+message Stage {
+      
+    string name = 1; 
+    uint64 allocation = 2;
+}
