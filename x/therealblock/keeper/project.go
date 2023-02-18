@@ -10,6 +10,8 @@ import (
 func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) uint64 {
 	count := k.GetProjectCount(ctx)
 	project.Id = count
+	//TODO assert that coin denom exits (bank.keeper.hasSupply())
+	project.Current = sdk.NewCoin(project.Target.Denom, sdk.ZeroInt())
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
 	appendedValue := k.cdc.MustMarshal(&project)
 	store.Set(GetProjectIDBytes(project.Id), appendedValue)

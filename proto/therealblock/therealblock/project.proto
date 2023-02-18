@@ -2,16 +2,18 @@ syntax = "proto3";
 package realblocknetwork.therealblock.therealblock;
 
 option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 message Project {
   
-  uint64 id = 1; 
-  string sponsor = 2; 
-  uint64 target = 3; 
-  uint64 current = 4; 
-  string state = 5; 
-  repeated Investor investors = 6; 
-  repeated Stage stages = 7; 
+  uint64                            id = 1;
+  string                            sponsor = 2;
+  cosmos.base.v1beta1.Coin          target = 3      [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin          current = 4     [(gogoproto.nullable) = false];
+  string                            state = 5;
+  repeated Investor                 investors = 6;
+  repeated Stage                    stages = 7;
 }
 
 message Investor {

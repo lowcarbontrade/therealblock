@@ -9,9 +9,17 @@ import (
 
 func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProject) (*types.MsgCreateProjectResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
+	var project = types.Project{
+		Stages:  msg.Stages,
+		Sponsor: msg.Sponsor,
+		Target:  msg.Target,
+	}
+	id := k.AppendProject(
+		ctx,
+		project,
+	)
 
-	// TODO: Handling the message
-	_ = ctx
-
-	return &types.MsgCreateProjectResponse{}, nil
+	return &types.MsgCreateProjectResponse{
+		Id: id,
+	}, nil
 }
