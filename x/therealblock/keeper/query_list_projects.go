@@ -34,7 +34,8 @@ func (k Keeper) ListProjects(goCtx context.Context, req *types.QueryListProjects
 		return nil, status.Error(codes.Internal, err.Error())
 	}
 
-	//TODO figure out how pagination really works and how we can customize the page size
+	//TODO figure out how pagination really works and how we can customize the page size (filtered pagination vs pagination?)
+	//TODO el orden de los parametros de la respuesta estan desordenados, ver como poder ordenarlos
 	return &types.QueryListProjectsResponse{
 		Projects:   projects,
 		Pagination: pageRes,

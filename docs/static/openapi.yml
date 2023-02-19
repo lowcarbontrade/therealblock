@@ -45277,66 +45277,68 @@ paths:
           schema:
             type: object
             properties:
-              project:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uint64
-                  sponsor:
-                    type: string
-                  target:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  current:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  state:
-                    type: string
-                  investors:
-                    type: array
-                    items:
+              projects:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      format: uint64
+                    sponsor:
+                      type: string
+                    target:
                       type: object
                       properties:
-                        address:
+                        denom:
                           type: string
-                        equity:
+                        amount:
                           type: string
-                          format: uint64
-                  stages:
-                    type: array
-                    items:
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+                    current:
                       type: object
                       properties:
-                        name:
+                        denom:
                           type: string
-                        allocation:
+                        amount:
                           type: string
-                          format: uint64
+                      description: >-
+                        Coin defines a token with a denomination and an amount.
+
+
+                        NOTE: The amount field is an Int which implements the
+                        custom method
+
+                        signatures required by gogoproto.
+                    state:
+                      type: string
+                    investors:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          address:
+                            type: string
+                          equity:
+                            type: string
+                            format: uint64
+                    stages:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          allocation:
+                            type: string
+                            format: uint64
               pagination:
                 type: object
                 properties:
@@ -75203,66 +75205,68 @@ definitions:
   realblocknetwork.therealblock.therealblock.QueryListProjectsResponse:
     type: object
     properties:
-      project:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uint64
-          sponsor:
-            type: string
-          target:
-            type: object
-            properties:
-              denom:
-                type: string
-              amount:
-                type: string
-            description: >-
-              Coin defines a token with a denomination and an amount.
-
-
-              NOTE: The amount field is an Int which implements the custom
-              method
-
-              signatures required by gogoproto.
-          current:
-            type: object
-            properties:
-              denom:
-                type: string
-              amount:
-                type: string
-            description: >-
-              Coin defines a token with a denomination and an amount.
-
-
-              NOTE: The amount field is an Int which implements the custom
-              method
-
-              signatures required by gogoproto.
-          state:
-            type: string
-          investors:
-            type: array
-            items:
+      projects:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uint64
+            sponsor:
+              type: string
+            target:
               type: object
               properties:
-                address:
+                denom:
                   type: string
-                equity:
+                amount:
                   type: string
-                  format: uint64
-          stages:
-            type: array
-            items:
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+            current:
               type: object
               properties:
-                name:
+                denom:
                   type: string
-                allocation:
+                amount:
                   type: string
-                  format: uint64
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+            state:
+              type: string
+            investors:
+              type: array
+              items:
+                type: object
+                properties:
+                  address:
+                    type: string
+                  equity:
+                    type: string
+                    format: uint64
+            stages:
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  allocation:
+                    type: string
+                    format: uint64
       pagination:
         type: object
         properties:
