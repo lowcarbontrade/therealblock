@@ -18,6 +18,11 @@ const (
 
 	// ProjectCountKey is the store key for the count of all projects
 	ProjectCountKey = "Project/count/"
+
+	// ProjectCreatedEvent is the event type for project creation
+	ProjectCreatedEventType             = "project_created"
+	ProjectCreatedEventAttributeKey     = "id"
+	ProjectCreatedEventAttributeCreator = "creator"
 )
 
 func KeyPrefix(p string) []byte {

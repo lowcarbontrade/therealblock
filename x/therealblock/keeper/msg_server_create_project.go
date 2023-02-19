@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
@@ -18,6 +19,13 @@ func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProj
 		ctx,
 		project,
 	)
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(types.ProjectCreatedEventType,
+			sdk.NewAttribute(types.ProjectCreatedEventAttributeKey, strconv.FormatUint(id, 10)),
+			sdk.NewAttribute(types.ProjectCreatedEventAttributeCreator, msg.Sponsor),
+		),
+	)
+
 	//TODO find out how to get the signer address of the transaction
 	return &types.MsgCreateProjectResponse{
 		Id:      id,
