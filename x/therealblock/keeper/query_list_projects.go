@@ -33,10 +33,10 @@ func (k Keeper) ListProjects(goCtx context.Context, req *types.QueryListProjects
 	if err != nil {
 		return nil, status.Error(codes.Internal, err.Error())
 	}
-	
+
 	//TODO figure out how pagination really works and how we can customize the page size
 	return &types.QueryListProjectsResponse{
-		Project:    projects,
+		Projects:   projects,
 		Pagination: pageRes,
 	}, nil
 }

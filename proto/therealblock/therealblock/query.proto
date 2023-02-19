@@ -40,7 +40,7 @@ message QueryListProjectsRequest {
 }
 
 message QueryListProjectsResponse {
-  repeated Project                               project    = 1[(gogoproto.nullable) = false];
+  repeated Project                               projects    = 1[(gogoproto.nullable) = false];
   cosmos.base.query.v1beta1.PageResponse         pagination = 2;
 }
 
