@@ -1,26 +1,46 @@
 syntax = "proto3";
+
 package realblocknetwork.therealblock.therealblock;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "therealblock/therealblock/params.proto";
+import "therealblock/therealblock/project.proto";
 
 option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/realblocknetwork/therealblock/therealblock/params";
+  
+  }
+  
+  // Queries a list of ListProjects items.
+  rpc ListProjects (QueryListProjectsRequest) returns (QueryListProjectsResponse) {
+    option (google.api.http).get = "/realblocknetwork/therealblock/therealblock/list_projects";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryListProjectsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryListProjectsResponse {
+  repeated Project                               project    = 1[(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse         pagination = 2;
+}
+
