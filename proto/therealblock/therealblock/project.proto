@@ -18,12 +18,14 @@ message Project {
 
 message Investor {
     
-    string address = 1; 
+    string address = 1;
+    //TODO change to coin type
     uint64 equity = 2; 
 }
 
 message Stage {
       
-    string name = 1; 
+    string name = 1;
+    //TODO change to coin type
     uint64 allocation = 2;
 }
