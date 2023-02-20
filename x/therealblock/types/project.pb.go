@@ -117,8 +117,8 @@ func (m *Project) GetStages() []*Stage {
 }
 
 type Investor struct {
-	Address string `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
-	Equity types.Coin `protobuf:"bytes,2,opt,name=equity,proto3" json:"equity"`
+	Address string     `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
+	Equity  types.Coin `protobuf:"bytes,2,opt,name=equity,proto3" json:"equity"`
 }
 
 func (m *Investor) Reset()         { *m = Investor{} }
@@ -169,8 +169,7 @@ func (m *Investor) GetEquity() types.Coin {
 }
 
 type Stage struct {
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// TODO change to coin type
+	Name       string     `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
 	Allocation types.Coin `protobuf:"bytes,2,opt,name=allocation,proto3" json:"allocation"`
 }
 

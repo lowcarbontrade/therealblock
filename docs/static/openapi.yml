@@ -45340,7 +45340,6 @@ paths:
                             the custom method
 
                             signatures required by gogoproto.
-                          title: TODO change to coin type
                   stages:
                     type: array
                     items:
@@ -45364,7 +45363,6 @@ paths:
                             the custom method
 
                             signatures required by gogoproto.
-                          title: TODO change to coin type
         default:
           description: An unexpected error response.
           schema:
@@ -45466,7 +45464,6 @@ paths:
                               the custom method
 
                               signatures required by gogoproto.
-                            title: TODO change to coin type
                     stages:
                       type: array
                       items:
@@ -45490,7 +45487,6 @@ paths:
                               the custom method
 
                               signatures required by gogoproto.
-                            title: TODO change to coin type
               pagination:
                 type: object
                 properties:
@@ -75298,7 +75294,6 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-        title: TODO change to coin type
   realblocknetwork.therealblock.therealblock.MsgCreateProjectResponse:
     type: object
     properties:
@@ -75306,6 +75301,11 @@ definitions:
         type: string
         format: uint64
       address:
+        type: string
+  realblocknetwork.therealblock.therealblock.MsgInvestorBuyInResponse:
+    type: object
+    properties:
+      investorAddr:
         type: string
   realblocknetwork.therealblock.therealblock.Params:
     type: object
@@ -75366,7 +75366,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-              title: TODO change to coin type
       stages:
         type: array
         items:
@@ -75389,7 +75388,6 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-              title: TODO change to coin type
   realblocknetwork.therealblock.therealblock.QueryGetProjectResponse:
     type: object
     properties:
@@ -75455,7 +75453,6 @@ definitions:
                     method
 
                     signatures required by gogoproto.
-                  title: TODO change to coin type
           stages:
             type: array
             items:
@@ -75478,7 +75475,6 @@ definitions:
                     method
 
                     signatures required by gogoproto.
-                  title: TODO change to coin type
   realblocknetwork.therealblock.therealblock.QueryListProjectsResponse:
     type: object
     properties:
@@ -75546,7 +75542,6 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
-                    title: TODO change to coin type
             stages:
               type: array
               items:
@@ -75569,7 +75564,6 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
-                    title: TODO change to coin type
       pagination:
         type: object
         properties:
@@ -75620,4 +75614,3 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-        title: TODO change to coin type
