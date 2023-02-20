@@ -41,3 +41,13 @@ func GetProjectIDBytes(id uint64) []byte {
 	binary.BigEndian.PutUint64(bz, id)
 	return bz
 }
+
+func (k Keeper) GetProjectId(ctx sdk.Context, id uint64) (val types.Project, found bool) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	b := store.Get(GetProjectIDBytes(id))
+	if b == nil {
+		return val, false
+	}
+	k.cdc.MustUnmarshal(b, &val)
+	return val, true
+}
