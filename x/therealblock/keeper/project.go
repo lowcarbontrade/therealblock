@@ -51,3 +51,18 @@ func (k Keeper) GetProjectId(ctx sdk.Context, id uint64) (val types.Project, fou
 	k.cdc.MustUnmarshal(b, &val)
 	return val, true
 }
+
+func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.Investor) (string, error) {
+	project, found := k.GetProjectId(ctx, id)
+	if !found {
+		return "", types.ErrProjectNotFound
+	}
+	//TODO check if project has been validated (requires new validate-project msg)
+	//if project.State != types.ProjectStateActive {
+	//	return "", types.ErrProjectNotActive
+	//}
+	project.Investors = append(project.Investors, &investor)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	return investor.Address, nil
+}

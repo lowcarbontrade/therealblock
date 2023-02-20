@@ -9,9 +9,15 @@ import (
 
 func (k msgServer) InvestorBuyIn(goCtx context.Context, msg *types.MsgInvestorBuyIn) (*types.MsgInvestorBuyInResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// TODO: Handling the message
-	_ = ctx
-
-	return &types.MsgInvestorBuyInResponse{}, nil
+	var investor = types.Investor{
+		Address: msg.InvestorAddr,
+		Equity:  msg.Amount,
+	}
+	appendedAddr, err := k.AppendInvestorBuyIn(ctx, msg.ProjectId, investor)
+	if err != nil {
+		return &types.MsgInvestorBuyInResponse{}, err
+	}
+	return &types.MsgInvestorBuyInResponse{
+		InvestorAddr: appendedAddr,
+	}, nil
 }
