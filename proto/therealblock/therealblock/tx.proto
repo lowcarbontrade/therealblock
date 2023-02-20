@@ -11,15 +11,27 @@ option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/typ
 // Msg defines the Msg service.
 service Msg {
   rpc CreateProject (MsgCreateProject) returns (MsgCreateProjectResponse);
+  rpc InvestorBuyIn (MsgInvestorBuyIn) returns (MsgInvestorBuyInResponse);
 }
 message MsgCreateProject {
-  string                          sponsor = 1;
-  cosmos.base.v1beta1.Coin        target  = 2 [(gogoproto.nullable) = false];
-  repeated Stage                  stages  = 3;
+  string                        sponsor = 1;
+  cosmos.base.v1beta1.Coin      target  = 2 [(gogoproto.nullable) = false];
+  repeated Stage                stages  = 3;
 }
 
 message MsgCreateProjectResponse {
-  uint64                    id      = 1;
-  string                    address = 2;
+  uint64 id      = 1;
+  string address = 2;
+}
+
+message MsgInvestorBuyIn {
+  string                   creator      = 1;
+  uint64                   projectId    = 2;
+  string                   investorAddr = 3;
+  cosmos.base.v1beta1.Coin amount       = 4 [(gogoproto.nullable) = false];
+}
+
+message MsgInvestorBuyInResponse {
+  string investorAddr = 1;
 }
 

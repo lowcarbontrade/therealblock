@@ -45267,6 +45267,128 @@ paths:
                         }
       tags:
         - Query
+  /realblocknetwork/therealblock/therealblock/get_project/{id}:
+    get:
+      summary: Queries a list of GetProject items.
+      operationId: RealblocknetworkTherealblockTherealblockGetProject
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              project:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    format: uint64
+                  sponsor:
+                    type: string
+                  target:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  current:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+                  state:
+                    type: string
+                  investors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        address:
+                          type: string
+                        equity:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+                  stages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        allocation:
+                          type: object
+                          properties:
+                            denom:
+                              type: string
+                            amount:
+                              type: string
+                          description: >-
+                            Coin defines a token with a denomination and an
+                            amount.
+
+
+                            NOTE: The amount field is an Int which implements
+                            the custom method
+
+                            signatures required by gogoproto.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
   /realblocknetwork/therealblock/therealblock/list_projects:
     get:
       summary: Queries a list of ListProjects items.
@@ -45327,8 +45449,21 @@ paths:
                           address:
                             type: string
                           equity:
-                            type: string
-                            format: uint64
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
                     stages:
                       type: array
                       items:
@@ -45337,8 +45472,21 @@ paths:
                           name:
                             type: string
                           allocation:
-                            type: string
-                            format: uint64
+                            type: object
+                            properties:
+                              denom:
+                                type: string
+                              amount:
+                                type: string
+                            description: >-
+                              Coin defines a token with a denomination and an
+                              amount.
+
+
+                              NOTE: The amount field is an Int which implements
+                              the custom method
+
+                              signatures required by gogoproto.
               pagination:
                 type: object
                 properties:
@@ -45442,102 +45590,6 @@ paths:
           in: query
           required: false
           type: boolean
-      tags:
-        - Query
-  /realblocknetwork/therealblock/therealblock/get_project/{id}:
-    get:
-      summary: Queries a list of GetProject items.
-      operationId: RealblocknetworkTherealblockTherealblockGetProject
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              project:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    format: uint64
-                  sponsor:
-                    type: string
-                  target:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  current:
-                    type: object
-                    properties:
-                      denom:
-                        type: string
-                      amount:
-                        type: string
-                    description: >-
-                      Coin defines a token with a denomination and an amount.
-
-
-                      NOTE: The amount field is an Int which implements the
-                      custom method
-
-                      signatures required by gogoproto.
-                  state:
-                    type: string
-                  investors:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        address:
-                          type: string
-                        equity:
-                          type: string
-                          format: uint64
-                  stages:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                        allocation:
-                          type: string
-                          format: uint64
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-          format: uint64
       tags:
         - Query
   /realblocknetwork/therealblock/therealblock/params:
@@ -75231,8 +75283,17 @@ definitions:
       address:
         type: string
       equity:
-        type: string
-        format: uint64
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.
   realblocknetwork.therealblock.therealblock.MsgCreateProjectResponse:
     type: object
     properties:
@@ -75240,6 +75301,11 @@ definitions:
         type: string
         format: uint64
       address:
+        type: string
+  realblocknetwork.therealblock.therealblock.MsgInvestorBuyInResponse:
+    type: object
+    properties:
+      investorAddr:
         type: string
   realblocknetwork.therealblock.therealblock.Params:
     type: object
@@ -75286,8 +75352,20 @@ definitions:
             address:
               type: string
             equity:
-              type: string
-              format: uint64
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
       stages:
         type: array
         items:
@@ -75296,8 +75374,107 @@ definitions:
             name:
               type: string
             allocation:
-              type: string
-              format: uint64
+              type: object
+              properties:
+                denom:
+                  type: string
+                amount:
+                  type: string
+              description: >-
+                Coin defines a token with a denomination and an amount.
+
+
+                NOTE: The amount field is an Int which implements the custom
+                method
+
+                signatures required by gogoproto.
+  realblocknetwork.therealblock.therealblock.QueryGetProjectResponse:
+    type: object
+    properties:
+      project:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uint64
+          sponsor:
+            type: string
+          target:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          current:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
+          state:
+            type: string
+          investors:
+            type: array
+            items:
+              type: object
+              properties:
+                address:
+                  type: string
+                equity:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
+          stages:
+            type: array
+            items:
+              type: object
+              properties:
+                name:
+                  type: string
+                allocation:
+                  type: object
+                  properties:
+                    denom:
+                      type: string
+                    amount:
+                      type: string
+                  description: >-
+                    Coin defines a token with a denomination and an amount.
+
+
+                    NOTE: The amount field is an Int which implements the custom
+                    method
+
+                    signatures required by gogoproto.
   realblocknetwork.therealblock.therealblock.QueryListProjectsResponse:
     type: object
     properties:
@@ -75351,8 +75528,20 @@ definitions:
                   address:
                     type: string
                   equity:
-                    type: string
-                    format: uint64
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
             stages:
               type: array
               items:
@@ -75361,8 +75550,20 @@ definitions:
                   name:
                     type: string
                   allocation:
-                    type: string
-                    format: uint64
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
       pagination:
         type: object
         properties:
@@ -75389,123 +75590,6 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  realblocknetwork.therealblock.therealblock.Project:
-    type: object
-    properties:
-      id:
-        type: string
-        format: uint64
-      sponsor:
-        type: string
-      target:
-        type: object
-        properties:
-          denom:
-            type: string
-          amount:
-            type: string
-        description: |-
-          Coin defines a token with a denomination and an amount.
-
-          NOTE: The amount field is an Int which implements the custom method
-          signatures required by gogoproto.
-      current:
-        type: object
-        properties:
-          denom:
-            type: string
-          amount:
-            type: string
-        description: |-
-          Coin defines a token with a denomination and an amount.
-
-          NOTE: The amount field is an Int which implements the custom method
-          signatures required by gogoproto.
-      state:
-        type: string
-      investors:
-        type: array
-        items:
-          type: object
-          properties:
-            address:
-              type: string
-            equity:
-              type: string
-              format: uint64
-      stages:
-        type: array
-        items:
-          type: object
-          properties:
-            name:
-              type: string
-            allocation:
-              type: string
-              format: uint64
-  realblocknetwork.therealblock.therealblock.QueryGetProjectResponse:
-    type: object
-    properties:
-      project:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uint64
-          sponsor:
-            type: string
-          target:
-            type: object
-            properties:
-              denom:
-                type: string
-              amount:
-                type: string
-            description: >-
-              Coin defines a token with a denomination and an amount.
-
-
-              NOTE: The amount field is an Int which implements the custom
-              method
-
-              signatures required by gogoproto.
-          current:
-            type: object
-            properties:
-              denom:
-                type: string
-              amount:
-                type: string
-            description: >-
-              Coin defines a token with a denomination and an amount.
-
-
-              NOTE: The amount field is an Int which implements the custom
-              method
-
-              signatures required by gogoproto.
-          state:
-            type: string
-          investors:
-            type: array
-            items:
-              type: object
-              properties:
-                address:
-                  type: string
-                equity:
-                  type: string
-                  format: uint64
-          stages:
-            type: array
-            items:
-              type: object
-              properties:
-                name:
-                  type: string
-                allocation:
-                  type: string
-                  format: uint64
   realblocknetwork.therealblock.therealblock.QueryParamsResponse:
     type: object
     properties:
@@ -75519,5 +75603,14 @@ definitions:
       name:
         type: string
       allocation:
-        type: string
-        format: uint64
+        type: object
+        properties:
+          denom:
+            type: string
+          amount:
+            type: string
+        description: |-
+          Coin defines a token with a denomination and an amount.
+
+          NOTE: The amount field is an Int which implements the custom method
+          signatures required by gogoproto.

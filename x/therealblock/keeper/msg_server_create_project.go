@@ -8,6 +8,7 @@ import (
 )
 
 func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProject) (*types.MsgCreateProjectResponse, error) {
+	//TODO implement error handling
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	var project = types.Project{
 		Stages:  msg.Stages,
