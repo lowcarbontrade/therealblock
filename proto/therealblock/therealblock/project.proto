@@ -6,7 +6,6 @@ import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
 message Project {
-  
   uint64                            id = 1;
   string                            sponsor = 2;
   cosmos.base.v1beta1.Coin          target = 3      [(gogoproto.nullable) = false];
@@ -17,15 +16,11 @@ message Project {
 }
 
 message Investor {
-    
-    string address = 1;
-    //TODO change to coin type
-    uint64 equity = 2; 
+    string                           address = 1;
+    cosmos.base.v1beta1.Coin         equity = 2 [(gogoproto.nullable) = false];
 }
 
 message Stage {
-      
-    string name = 1;
-    //TODO change to coin type
-    uint64 allocation = 2;
+    string                          name = 1;
+    cosmos.base.v1beta1.Coin        allocation = 2 [(gogoproto.nullable) = false];
 }
