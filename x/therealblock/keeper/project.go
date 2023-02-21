@@ -66,3 +66,17 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
 	return investor.Address, nil
 }
+
+func (k Keeper) ChangeState(ctx sdk.Context, newState string, projectId uint64) (uint64, error) {
+	if err := types.ValidState(newState); err != nil {
+		return 0, err
+	}
+	project, found := k.GetProjectId(ctx, projectId)
+	if !found {
+		return 0, types.ErrProjectNotFound
+	}
+	project.State = newState
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	return project.Id, nil
+}

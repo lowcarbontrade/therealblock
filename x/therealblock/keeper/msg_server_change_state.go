@@ -9,9 +9,11 @@ import (
 
 func (k msgServer) ChangeState(goCtx context.Context, msg *types.MsgChangeState) (*types.MsgChangeStateResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
-	// TODO: Handling the message
-	_ = ctx
-
-	return &types.MsgChangeStateResponse{}, nil
+	projectId, err := k.ChangeState(ctx, msg.NewState, msg.ProjectId)
+	if err != nil {
+		return &types.MsgChangeStateResponse{}, err
+	}
+	return &types.MsgChangeStateResponse{
+		ProjectId: projectId,
+	}, nil
 }
