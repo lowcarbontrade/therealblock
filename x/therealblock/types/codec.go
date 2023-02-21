@@ -10,6 +10,7 @@ import (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateProject{}, "therealblock/CreateProject", nil)
 	cdc.RegisterConcrete(&MsgInvestorBuyIn{}, "therealblock/InvestorBuyIn", nil)
+	cdc.RegisterConcrete(&MsgChangeState{}, "therealblock/ChangeState", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -19,6 +20,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgInvestorBuyIn{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgChangeState{},
 	)
 	// this line is used by starport scaffolding # 3
 
