@@ -21,8 +21,10 @@ const (
 
 	// ProjectCreatedEvent is the event type for project creation
 	ProjectCreatedEventType             = "project_created"
-	ProjectCreatedEventAttributeKey     = "id"
-	ProjectCreatedEventAttributeCreator = "creator"
+
+	// General event attributes
+	ProjectEventProjectKey     = "id"
+	ProjectEventProjectCreator = "creator"
 )
 
 func KeyPrefix(p string) []byte {
