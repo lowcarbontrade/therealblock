@@ -12,7 +12,7 @@ const (
 	ProjectStateCancelled = "cancelled"
 )
 
-func ValidState(state string) error {
+func IsValidState(state string) error {
 	var set = map[string]bool{
 		ProjectStateDraft:     true,
 		ProjectStateActive:    true,
