@@ -75294,6 +75294,12 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+  realblocknetwork.therealblock.therealblock.MsgChangeStateResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.MsgCreateProjectResponse:
     type: object
     properties:

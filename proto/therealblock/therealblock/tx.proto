@@ -12,11 +12,12 @@ option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/typ
 service Msg {
   rpc CreateProject (MsgCreateProject) returns (MsgCreateProjectResponse);
   rpc InvestorBuyIn (MsgInvestorBuyIn) returns (MsgInvestorBuyInResponse);
+  rpc ChangeState   (MsgChangeState  ) returns (MsgChangeStateResponse  );
 }
 message MsgCreateProject {
-  string                        sponsor = 1;
-  cosmos.base.v1beta1.Coin      target  = 2 [(gogoproto.nullable) = false];
-  repeated Stage                stages  = 3;
+           string                   sponsor = 1;
+           cosmos.base.v1beta1.Coin target  = 2 [(gogoproto.nullable) = false];
+  repeated Stage                    stages  = 3;
 }
 
 message MsgCreateProjectResponse {
@@ -33,5 +34,15 @@ message MsgInvestorBuyIn {
 
 message MsgInvestorBuyInResponse {
   string investorAddr = 1;
+}
+
+message MsgChangeState {
+  string creator   = 1;
+  uint64 projectId = 2;
+  string newState  = 3;
+}
+
+message MsgChangeStateResponse {
+  uint64 projectId = 1;
 }
 
