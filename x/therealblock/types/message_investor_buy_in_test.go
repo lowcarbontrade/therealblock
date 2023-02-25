@@ -17,13 +17,13 @@ func TestMsgInvestorBuyIn_ValidateBasic(t *testing.T) {
 		{
 			name: "invalid address",
 			msg: MsgInvestorBuyIn{
-				Creator: "invalid_address",
+				Investor: "invalid_address",
 			},
 			err: sdkerrors.ErrInvalidAddress,
 		}, {
 			name: "valid address",
 			msg: MsgInvestorBuyIn{
-				Creator: sample.AccAddress(),
+				Investor: sample.AccAddress(),
 			},
 		},
 	}

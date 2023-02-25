@@ -18,4 +18,6 @@ var (
 	ErrCoinDiffDenom          = sdkerrors.Register(ModuleName, 1107, "coin denom does not match project target denom")
 	ErrCoinDiffAmount         = sdkerrors.Register(ModuleName, 1108, "stages coin amount does not match project target amount")
 	ErrInvalidStageFormat     = sdkerrors.Register(ModuleName, 1109, "invalid stage format")
+	ErrOverFunded             = sdkerrors.Register(ModuleName, 1110, "project is overfunded")
+	ErrCoinZeroAmount         = sdkerrors.Register(ModuleName, 1111, "coin amount is zero")
 )

@@ -9,12 +9,11 @@ const TypeMsgInvestorBuyIn = "investor_buy_in"
 
 var _ sdk.Msg = &MsgInvestorBuyIn{}
 
-func NewMsgInvestorBuyIn(creator string, projectId uint64, investorAddr string, amount sdk.Coin) *MsgInvestorBuyIn {
+func NewMsgInvestorBuyIn(investor string, projectId uint64, amount sdk.Coin) *MsgInvestorBuyIn {
 	return &MsgInvestorBuyIn{
-		Creator:      creator,
-		ProjectId:    projectId,
-		InvestorAddr: investorAddr,
-		Amount:       amount,
+		Investor:  investor,
+		ProjectId: projectId,
+		Amount:    amount,
 	}
 }
 
@@ -27,7 +26,7 @@ func (msg *MsgInvestorBuyIn) Type() string {
 }
 
 func (msg *MsgInvestorBuyIn) GetSigners() []sdk.AccAddress {
-	creator, err := sdk.AccAddressFromBech32(msg.Creator)
+	creator, err := sdk.AccAddressFromBech32(msg.Investor)
 	if err != nil {
 		panic(err)
 	}
@@ -40,7 +39,7 @@ func (msg *MsgInvestorBuyIn) GetSignBytes() []byte {
 }
 
 func (msg *MsgInvestorBuyIn) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Creator)
+	_, err := sdk.AccAddressFromBech32(msg.Investor)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}

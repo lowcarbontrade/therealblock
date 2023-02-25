@@ -19,3 +19,6 @@ faucet:
 validators:
 - name: alice
   bonded: 100000000stake
+send_enabled:
+  - denom: rbs
+    enabled: true
