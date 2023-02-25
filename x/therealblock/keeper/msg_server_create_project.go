@@ -16,10 +16,13 @@ func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProj
 		Sponsor: msg.Sponsor,
 		Target:  msg.Target,
 	}
-	id := k.AppendProject(
+	id, err := k.AppendProject(
 		ctx,
 		project,
 	)
+	if err != nil {
+		return &types.MsgCreateProjectResponse{}, err
+	}
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(sdk.EventTypeMessage,
 			sdk.NewAttribute(sdk.AttributeKeyModule, types.ModuleName),

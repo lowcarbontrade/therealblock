@@ -1,16 +1,23 @@
 package keeper
 
 import (
+	sdkmath "cosmossdk.io/math"
 	"encoding/binary"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
+	"strings"
 )
 
-func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) uint64 {
+func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) (uint64, error) {
 	count := k.GetProjectCount(ctx)
 	project.Id = count
-	//TODO assert that coin denom exits (bank.keeper.hasSupply())
+	if !k.bankKeeper.HasSupply(ctx, project.Target.Denom) {
+		return 0, types.ErrCoinNotSupply
+	}
+	if err := k.checkStages(ctx, project.Stages, project.Target); err != nil {
+		return 0, err
+	}
 	project.Current = sdk.NewCoin(project.Target.Denom, sdk.ZeroInt())
 	project.State = types.ProjectStateDraft
 	project.Investors = make([]*types.Investor, 0)
@@ -18,7 +25,22 @@ func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) uint64 {
 	appendedValue := k.cdc.MustMarshal(&project)
 	store.Set(GetProjectIDBytes(project.Id), appendedValue)
 	k.SetProjectCount(ctx, count+1)
-	return count
+	return count, nil
+}
+
+func (k Keeper) checkStages(ctx sdk.Context, stages []*types.Stage, target sdk.Coin) error {
+	var total = sdkmath.NewInt(0)
+	for _, stage := range stages {
+		if strings.Compare(target.Denom, stage.Allocation.Denom) != 0 {
+			return types.ErrCoinDiffDenom
+		}
+		total = total.Add(stage.Allocation.Amount)
+	}
+	//k.Logger(ctx).Debug("checkStages", "total", total, "target", target.Amount)
+	if !total.Equal(target.Amount) {
+		return types.ErrCoinDiffAmount
+	}
+	return nil
 }
 
 func (k Keeper) GetProjectCount(ctx sdk.Context) uint64 {

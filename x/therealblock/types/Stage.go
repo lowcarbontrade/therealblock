@@ -12,15 +12,17 @@ type Stages []*Stage
 // stage-allocations are of sdk.Coin type
 // Example "stage1:1000token,stage2:2000token"
 func ParseStageNormalized(stageStr string) (Stages, error) {
-	//TODO assert argument format correctness
 	splitStages := strings.Split(stageStr, ",")
 	parsedStages := make([]*Stage, 0)
 
 	for _, stage := range splitStages {
 		splitStage := strings.Split(stage, ":")
+		if len(splitStage) != 2 {
+			return nil, ErrInvalidStageFormat
+		}
 		allocationParsed, err := sdk.ParseCoinNormalized(splitStage[1])
 		if err != nil {
-			return parsedStages, err
+			return nil, err
 		}
 		parsedStages = append(parsedStages, &Stage{Name: splitStage[0], Allocation: allocationParsed})
 	}
