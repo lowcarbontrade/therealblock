@@ -87,6 +87,13 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	if project.Target.Sub(project.Current).IsLT(investor.Equity) {
 		return "", types.ErrOverFunded
 	}
+	addr, err := sdk.AccAddressFromBech32(investor.Address)
+	if err != nil {
+		return "", err
+	}
+	if err := k.bankKeeper.SendCoinsFromAccountToModule(ctx, addr, types.ModuleName, sdk.NewCoins(investor.Equity)); err != nil {
+		return "", err
+	}
 	project.Investors = appendInvestor(project.Investors, &investor)
 	project.Current = project.Current.Add(investor.Equity)
 	if project.Target.IsEqual(project.Current) {
