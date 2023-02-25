@@ -36,7 +36,6 @@ func (k Keeper) checkStages(ctx sdk.Context, stages []*types.Stage, target sdk.C
 		}
 		total = total.Add(stage.Allocation.Amount)
 	}
-	//k.Logger(ctx).Debug("checkStages", "total", total, "target", target.Amount)
 	if !total.Equal(target.Amount) {
 		return types.ErrCoinDiffAmount
 	}
@@ -82,10 +81,37 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	if project.State != types.ProjectStateActive {
 		return "", types.ErrProjectNotActive
 	}
-	project.Investors = append(project.Investors, &investor)
+	if strings.Compare(project.Target.Denom, investor.Equity.Denom) != 0 {
+		return "", types.ErrCoinDiffDenom
+	}
+	if project.Target.Sub(project.Current).IsLT(investor.Equity) {
+		return "", types.ErrOverFunded
+	}
+	project.Investors = appendInvestor(project.Investors, &investor)
+	project.Current = project.Current.Add(investor.Equity)
+	if project.Target.IsEqual(project.Current) {
+		project.State = types.ProjectStateFunded
+		types.EmitEvent(ctx, types.ProjectFundedEventType, project.Id, investor.Address)
+	} else {
+		types.EmitEvent(ctx, types.ProjectInvestedEventType, project.Id, investor.Address)
+	}
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
 	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
 	return investor.Address, nil
+}
+
+func appendInvestor(investors []*types.Investor, newInvestor *types.Investor) []*types.Investor {
+	var found = false
+	for _, investor := range investors {
+		if strings.Compare(investor.Address, newInvestor.Address) == 0 {
+			found = true
+			investor.Equity = investor.Equity.Add(newInvestor.Equity)
+		}
+	}
+	if !found {
+		return append(investors, newInvestor)
+	}
+	return investors
 }
 
 func (k Keeper) ChangeProjectState(ctx sdk.Context, newState string, projectId uint64) (uint64, error) {

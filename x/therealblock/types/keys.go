@@ -20,10 +20,13 @@ const (
 	ProjectCountKey = "Project/count/"
 
 	// ProjectCreatedEvent is the event type for project creation
-	ProjectCreatedEventType    = "ProjectCreated"
+	ProjectCreatedEventType  = "ProjectCreated"
+	ProjectFundedEventType   = "ProjectFunded"
+	ProjectInvestedEventType = "ProjectInvested"
 
 	// General event attributes
-	ProjectEventProjectKey     = "id"
+	ProjectEventProjectKey = "id"
+
 	ProjectEventProjectCreator = "creator"
 )
 
