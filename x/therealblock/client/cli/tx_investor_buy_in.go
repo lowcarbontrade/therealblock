@@ -16,16 +16,15 @@ var _ = strconv.Itoa(0)
 
 func CmdInvestorBuyIn() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "investor-buy-in [project-id] [investor-addr] [amount]",
+		Use:   "investor-buy-in [project-id] [amount]",
 		Short: "Broadcast message investor-buy-in",
-		Args:  cobra.ExactArgs(3),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) (err error) {
 			argProjectId, err := cast.ToUint64E(args[0])
 			if err != nil {
 				return err
 			}
-			argInvestorAddr := args[1]
-			argAmount, err := sdk.ParseCoinNormalized(args[2])
+			argAmount, err := sdk.ParseCoinNormalized(args[1])
 			if err != nil {
 				return err
 			}
@@ -38,7 +37,6 @@ func CmdInvestorBuyIn() *cobra.Command {
 			msg := types.NewMsgInvestorBuyIn(
 				clientCtx.GetFromAddress().String(),
 				argProjectId,
-				argInvestorAddr,
 				argAmount,
 			)
 			if err := msg.ValidateBasic(); err != nil {

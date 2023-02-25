@@ -26,10 +26,9 @@ message MsgCreateProjectResponse {
 }
 
 message MsgInvestorBuyIn {
-  string                   creator      = 1;
+  string                   investor     = 1;
   uint64                   projectId    = 2;
-  string                   investorAddr = 3;
-  cosmos.base.v1beta1.Coin amount       = 4 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin amount       = 3 [(gogoproto.nullable) = false];
 }
 
 message MsgInvestorBuyInResponse {
