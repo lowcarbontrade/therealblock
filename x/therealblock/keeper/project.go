@@ -74,6 +74,9 @@ func (k Keeper) GetProjectId(ctx sdk.Context, id uint64) (val types.Project, fou
 }
 
 func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.Investor) (string, error) {
+	if investor.Equity.Amount.Equal(sdk.ZeroInt()) {
+		return "", types.ErrCoinZeroAmount
+	}
 	project, found := k.GetProjectId(ctx, id)
 	if !found {
 		return "", types.ErrProjectNotFound
