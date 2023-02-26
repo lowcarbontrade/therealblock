@@ -101,9 +101,9 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	project.Current = project.Current.Add(investor.Equity)
 	if project.Target.IsEqual(project.Current) {
 		project.State = types.ProjectStateFunded
-		types.EmitEvent(ctx, types.ProjectFundedEventType, project.Id, investor.Address)
+		types.EmitEvent(ctx, types.EventTypeProjectFunded, project.Id, investor.Address)
 	} else {
-		types.EmitEvent(ctx, types.ProjectInvestedEventType, project.Id, investor.Address)
+		types.EmitEvent(ctx, types.EventTypeProjectInvested, project.Id, investor.Address)
 	}
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
 	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))

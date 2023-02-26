@@ -19,10 +19,12 @@ const (
 	// ProjectCountKey is the store key for the count of all projects
 	ProjectCountKey = "Project/count/"
 
-	// ProjectCreatedEvent is the event type for project creation
-	ProjectCreatedEventType  = "ProjectCreated"
-	ProjectFundedEventType   = "ProjectFunded"
-	ProjectInvestedEventType = "ProjectInvested"
+	// Events type definitions
+	EventTypeProjectCreated  = "ProjectCreated"
+	EventTypeProjectFunded   = "ProjectFunded"
+	EventTypeProjectInvested = "ProjectInvested"
+	EventTypeMoneyIn         = "MoneyIn"
+	EventTypeMoneyOut        = "MoneyOut"
 
 	// General event attributes
 	ProjectEventProjectKey = "id"
