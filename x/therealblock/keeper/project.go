@@ -140,3 +140,38 @@ func (k Keeper) ChangeProjectState(ctx sdk.Context, newState string, projectId u
 	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
 	return project.Id, nil
 }
+
+func (k Keeper) SponsorCancelProject(ctx sdk.Context, projectId uint64, sponsor string) (uint64, error) {
+	project, found := k.GetProjectId(ctx, projectId)
+	if !found {
+		return 0, types.ErrProjectNotFound
+	}
+	if strings.Compare(project.Sponsor, sponsor) != 0 {
+		return 0, types.ErrNotProjectSponsor
+	}
+	if project.State != types.ProjectStateActive {
+		return 0, types.ErrProjectNotActive
+	}
+	if err := k.returnFundsCancel(ctx, &project); err != nil {
+		return 0, err
+	}
+	project.State = types.ProjectStateCancelled
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	return project.Id, nil
+}
+
+func (k Keeper) returnFundsCancel(ctx sdk.Context, project *types.Project) error {
+	for _, investor := range project.Investors {
+		addr, err := sdk.AccAddressFromBech32(investor.Address)
+		if err != nil {
+			return err
+		}
+		if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, addr, sdk.NewCoins(investor.Equity)); err != nil {
+			return err
+		}
+		project.Current.Amount = project.Current.Amount.Sub(investor.Equity.Amount)
+		investor.Equity.Amount = sdk.ZeroInt()
+	}
+	return nil
+}

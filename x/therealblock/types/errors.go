@@ -21,4 +21,5 @@ var (
 	ErrOverFunded             = sdkerrors.Register(ModuleName, 1110, "project is overfunded")
 	ErrCoinZeroAmount         = sdkerrors.Register(ModuleName, 1111, "coin amount is zero")
 	ErrNotEnoughBalance       = sdkerrors.Register(ModuleName, 1112, "not enough balance to perform the operation")
+	ErrNotProjectSponsor      = sdkerrors.Register(ModuleName, 1113, "signing address not the project sponsor")
 )

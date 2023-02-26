@@ -15,6 +15,7 @@ service Msg {
   rpc ChangeState   (MsgChangeState  ) returns (MsgChangeStateResponse  );
   rpc MoneyIn       (MsgMoneyIn      ) returns (MsgMoneyInResponse      );
   rpc MoneyOut      (MsgMoneyOut     ) returns (MsgMoneyOutResponse     );
+  rpc SponsorCancel (MsgSponsorCancel) returns (MsgSponsorCancelResponse);
 }
 message MsgCreateProject {
            string                   sponsor = 1;
@@ -64,5 +65,14 @@ message MsgMoneyOut {
 
 message MsgMoneyOutResponse {
   string burnAddr = 1;
+}
+
+message MsgSponsorCancel {
+  string creator   = 1;
+  uint64 projectId = 2;
+}
+
+message MsgSponsorCancelResponse {
+  uint64 projectId = 1;
 }
 
