@@ -14,6 +14,7 @@ service Msg {
   rpc InvestorBuyIn (MsgInvestorBuyIn) returns (MsgInvestorBuyInResponse);
   rpc ChangeState   (MsgChangeState  ) returns (MsgChangeStateResponse  );
   rpc MoneyIn       (MsgMoneyIn      ) returns (MsgMoneyInResponse      );
+  rpc MoneyOut      (MsgMoneyOut     ) returns (MsgMoneyOutResponse     );
 }
 message MsgCreateProject {
            string                   sponsor = 1;
@@ -54,5 +55,14 @@ message MsgMoneyIn {
 
 message MsgMoneyInResponse {
   string addrTo = 1;
+}
+
+message MsgMoneyOut {
+  string                   creator = 1;
+  cosmos.base.v1beta1.Coin amount  = 2 [(gogoproto.nullable) = false];
+}
+
+message MsgMoneyOutResponse {
+  string burnAddr = 1;
 }
 

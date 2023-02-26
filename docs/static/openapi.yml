@@ -75318,6 +75318,11 @@ definitions:
     properties:
       addrTo:
         type: string
+  realblocknetwork.therealblock.therealblock.MsgMoneyOutResponse:
+    type: object
+    properties:
+      burnAddr:
+        type: string
   realblocknetwork.therealblock.therealblock.Params:
     type: object
     description: Params defines the parameters for the module.
