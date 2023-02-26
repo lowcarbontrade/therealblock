@@ -21,7 +21,7 @@ func (k msgServer) CreateProject(goCtx context.Context, msg *types.MsgCreateProj
 	if err != nil {
 		return &types.MsgCreateProjectResponse{}, err
 	}
-	types.EmitEvent(ctx, types.ProjectCreatedEventType, id, msg.Sponsor)
+	types.EmitEvent(ctx, types.EventTypeProjectCreated, id, msg.Sponsor)
 
 	//TODO find out how to get the signer address of the transaction
 	return &types.MsgCreateProjectResponse{
