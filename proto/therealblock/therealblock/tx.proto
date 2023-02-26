@@ -13,6 +13,7 @@ service Msg {
   rpc CreateProject (MsgCreateProject) returns (MsgCreateProjectResponse);
   rpc InvestorBuyIn (MsgInvestorBuyIn) returns (MsgInvestorBuyInResponse);
   rpc ChangeState   (MsgChangeState  ) returns (MsgChangeStateResponse  );
+  rpc MoneyIn       (MsgMoneyIn      ) returns (MsgMoneyInResponse      );
 }
 message MsgCreateProject {
            string                   sponsor = 1;
@@ -26,9 +27,9 @@ message MsgCreateProjectResponse {
 }
 
 message MsgInvestorBuyIn {
-  string                   investor     = 1;
-  uint64                   projectId    = 2;
-  cosmos.base.v1beta1.Coin amount       = 3 [(gogoproto.nullable) = false];
+  string                   investor  = 1;
+  uint64                   projectId = 2;
+  cosmos.base.v1beta1.Coin amount    = 3 [(gogoproto.nullable) = false];
 }
 
 message MsgInvestorBuyInResponse {
@@ -43,5 +44,15 @@ message MsgChangeState {
 
 message MsgChangeStateResponse {
   uint64 projectId = 1;
+}
+
+message MsgMoneyIn {
+  string                   creator = 1;
+  string                   addrTo  = 2;
+  cosmos.base.v1beta1.Coin amount  = 3 [(gogoproto.nullable) = false];
+}
+
+message MsgMoneyInResponse {
+  string addrTo = 1;
 }
 
