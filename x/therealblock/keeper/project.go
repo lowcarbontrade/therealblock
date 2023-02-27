@@ -100,8 +100,8 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	project.Investors = appendInvestor(project.Investors, &investor)
 	project.Current = project.Current.Add(investor.Equity)
 	if project.Target.IsEqual(project.Current) {
-		project.State = types.ProjectStateFunded
-		types.EmitEvent(ctx, types.EventTypeProjectFunded, project.Id, investor.Address)
+		project.State = types.ProjectStatePending
+		types.EmitEvent(ctx, types.EventTypeProjectPending, project.Id, investor.Address)
 	} else {
 		types.EmitEvent(ctx, types.EventTypeProjectInvested, project.Id, investor.Address)
 	}
@@ -149,8 +149,9 @@ func (k Keeper) SponsorCancelProject(ctx sdk.Context, projectId uint64, sponsor 
 	if strings.Compare(project.Sponsor, sponsor) != 0 {
 		return 0, types.ErrNotProjectSponsor
 	}
-	if project.State != types.ProjectStateActive {
-		return 0, types.ErrProjectNotActive
+	if project.State != types.ProjectStateActive && project.State != types.ProjectStatePending {
+
+		return 0, types.ErrProjectNotCancelable
 	}
 	if err := k.returnFundsCancel(ctx, &project); err != nil {
 		return 0, err
