@@ -211,6 +211,14 @@ func (k Keeper) issueProjectTokens(ctx sdk.Context, project *types.Project) erro
 			return err
 		}
 	}
+	addr, err := sdk.AccAddressFromBech32(project.Sponsor)
+	if err != nil {
+		return err
+	}
+	if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, addr, sdk.NewCoins(project.Stages[0].Allocation)); err != nil {
+		return err
+	}
+	project.Current = project.Current.Sub(project.Stages[0].Allocation)
 	return nil
 }
 
