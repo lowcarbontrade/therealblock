@@ -48,6 +48,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgSponsorCancel int = 100
 
+	opWeightMsgSponsorAccept = "op_weight_msg_sponsor_accept"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgSponsorAccept int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -146,6 +150,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgSponsorCancel,
 		therealblocksimulation.SimulateMsgSponsorCancel(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgSponsorAccept int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgSponsorAccept, &weightMsgSponsorAccept, nil,
+		func(_ *rand.Rand) {
+			weightMsgSponsorAccept = defaultWeightMsgSponsorAccept
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgSponsorAccept,
+		therealblocksimulation.SimulateMsgSponsorAccept(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
