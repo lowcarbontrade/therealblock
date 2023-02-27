@@ -16,6 +16,7 @@ service Msg {
   rpc MoneyIn       (MsgMoneyIn      ) returns (MsgMoneyInResponse      );
   rpc MoneyOut      (MsgMoneyOut     ) returns (MsgMoneyOutResponse     );
   rpc SponsorCancel (MsgSponsorCancel) returns (MsgSponsorCancelResponse);
+  rpc SponsorAccept (MsgSponsorAccept) returns (MsgSponsorAcceptResponse);
 }
 message MsgCreateProject {
            string                   sponsor = 1;
@@ -73,6 +74,15 @@ message MsgSponsorCancel {
 }
 
 message MsgSponsorCancelResponse {
+  uint64 projectId = 1;
+}
+
+message MsgSponsorAccept {
+  string creator   = 1;
+  uint64 projectId = 2;
+}
+
+message MsgSponsorAcceptResponse {
   uint64 projectId = 1;
 }
 

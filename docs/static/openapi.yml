@@ -75323,6 +75323,12 @@ definitions:
     properties:
       burnAddr:
         type: string
+  realblocknetwork.therealblock.therealblock.MsgSponsorAcceptResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.MsgSponsorCancelResponse:
     type: object
     properties:

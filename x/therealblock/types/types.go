@@ -5,6 +5,8 @@ const (
 
 	ProjectStateActive = "active"
 
+	ProjectStatePending = "pending"
+
 	ProjectStateFunded = "funded"
 
 	ProjectStateCompleted = "completed"

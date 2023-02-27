@@ -25,6 +25,7 @@ const (
 	EventTypeProjectInvested = "ProjectInvested"
 	EventTypeMoneyIn         = "MoneyIn"
 	EventTypeMoneyOut        = "MoneyOut"
+	EventTypeProjectPending  = "ProjectPending"
 
 	// General event attributes
 	ProjectEventProjectKey = "id"

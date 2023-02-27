@@ -6,6 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
+	"strconv"
 	"strings"
 )
 
@@ -100,8 +101,8 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	project.Investors = appendInvestor(project.Investors, &investor)
 	project.Current = project.Current.Add(investor.Equity)
 	if project.Target.IsEqual(project.Current) {
-		project.State = types.ProjectStateFunded
-		types.EmitEvent(ctx, types.EventTypeProjectFunded, project.Id, investor.Address)
+		project.State = types.ProjectStatePending
+		types.EmitEvent(ctx, types.EventTypeProjectPending, project.Id, investor.Address)
 	} else {
 		types.EmitEvent(ctx, types.EventTypeProjectInvested, project.Id, investor.Address)
 	}
@@ -149,8 +150,9 @@ func (k Keeper) SponsorCancelProject(ctx sdk.Context, projectId uint64, sponsor 
 	if strings.Compare(project.Sponsor, sponsor) != 0 {
 		return 0, types.ErrNotProjectSponsor
 	}
-	if project.State != types.ProjectStateActive {
-		return 0, types.ErrProjectNotActive
+	if project.State != types.ProjectStateActive && project.State != types.ProjectStatePending {
+
+		return 0, types.ErrProjectNotCancelable
 	}
 	if err := k.returnFundsCancel(ctx, &project); err != nil {
 		return 0, err
@@ -174,4 +176,52 @@ func (k Keeper) returnFundsCancel(ctx sdk.Context, project *types.Project) error
 		investor.Equity.Amount = sdk.ZeroInt()
 	}
 	return nil
+}
+
+func (k Keeper) SponsorAcceptProject(ctx sdk.Context, projectId uint64, sponsor string) (uint64, error) {
+	project, found := k.GetProjectId(ctx, projectId)
+	if !found {
+		return 0, types.ErrProjectNotFound
+	}
+	if strings.Compare(project.Sponsor, sponsor) != 0 {
+		return 0, types.ErrNotProjectSponsor
+	}
+	if project.State != types.ProjectStatePending {
+		return 0, types.ErrProjectNotPending
+	}
+	project.State = types.ProjectStateFunded
+	if err := k.issueProjectTokens(ctx, &project); err != nil {
+		return 0, err
+	}
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	return project.Id, nil
+}
+
+func (k Keeper) issueProjectTokens(ctx sdk.Context, project *types.Project) error {
+	if err := k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(sdk.NewCoin(getDenomFromProject(project.Id), project.Target.Amount))); err != nil {
+		return err
+	}
+	for _, investor := range project.Investors {
+		addr, err := sdk.AccAddressFromBech32(investor.Address)
+		if err != nil {
+			return err
+		}
+		if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, addr, sdk.NewCoins(sdk.NewCoin(getDenomFromProject(project.Id), investor.Equity.Amount))); err != nil {
+			return err
+		}
+	}
+	addr, err := sdk.AccAddressFromBech32(project.Sponsor)
+	if err != nil {
+		return err
+	}
+	if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, addr, sdk.NewCoins(project.Stages[0].Allocation)); err != nil {
+		return err
+	}
+	project.Current = project.Current.Sub(project.Stages[0].Allocation)
+	return nil
+}
+
+func getDenomFromProject(projectId uint64) string {
+	return "wRBS-" + strconv.FormatUint(projectId, 10)
 }
