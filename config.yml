@@ -8,6 +8,10 @@ accounts:
   coins:
   - 10000rbs
   - 100000000stake
+- name: dev
+  coins:
+  - 1000000rbs
+  mnemonic: lucky valid identify sun village gloom random purpose draft lamp whale build egg clog cook stage velvet trumpet judge behind collect electric hospital gap
 client:
   openapi:
     path: docs/static/openapi.yml

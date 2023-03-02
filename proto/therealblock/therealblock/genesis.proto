@@ -8,5 +8,10 @@ option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/typ
 
 // GenesisState defines the therealblock module's genesis state.
 message GenesisState {
-  Params params = 1 [(gogoproto.nullable) = false];
+  Params              params    = 1 [(gogoproto.nullable) = false];
+  repeated Account    adminAccounts  = 2 [(gogoproto.nullable) = false];
+}
+
+message Account {
+  string address = 1;
 }

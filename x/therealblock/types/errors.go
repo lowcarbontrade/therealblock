@@ -24,4 +24,6 @@ var (
 	ErrNotProjectSponsor      = sdkerrors.Register(ModuleName, 1113, "signing address not the project sponsor")
 	ErrProjectNotCancelable   = sdkerrors.Register(ModuleName, 1114, "sponsor can not cancel, project not in Active or Funded state")
 	ErrProjectNotPending      = sdkerrors.Register(ModuleName, 1115, "project not in Pending state")
+	ErrInvalidAddress         = sdkerrors.Register(ModuleName, 1116, "invalid address")
+	ErrAccountExists          = sdkerrors.Register(ModuleName, 1117, "account already exists")
 )
