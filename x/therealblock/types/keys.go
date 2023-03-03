@@ -16,6 +16,9 @@ const (
 	// ProjectKey is the store keyprefix string for project
 	ProjectKey = "Project/value/"
 
+	// GenAccountKey is the store keyprefix string for gen account
+	GenAccountKey = "GenAccount/value/"
+
 	// ProjectCountKey is the store key for the count of all projects
 	ProjectCountKey = "Project/count/"
 

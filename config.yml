@@ -8,6 +8,13 @@ accounts:
   coins:
   - 10000rbs
   - 100000000stake
+- name: admin
+  coins:
+    - 1000000rbs
+- name: dev
+  coins:
+  - 1000000rbs
+  mnemonic: lucky valid identify sun village gloom random purpose draft lamp whale build egg clog cook stage velvet trumpet judge behind collect electric hospital gap
 client:
   openapi:
     path: docs/static/openapi.yml
@@ -22,3 +29,8 @@ validators:
 send_enabled:
   - denom: rbs
     enabled: true
+#genesis: TODO would be nice being able to set genesis accounts here
+#  app_state:
+#    therealblock:
+#      adminAccounts:
+#        - "realblock18njy4mmunlt2dkw283l0x754d4yv6tgdv6nsxc"

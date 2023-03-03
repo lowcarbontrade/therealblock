@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 package realblocknetwork.therealblock.therealblock;
 
 import "gogoproto/gogo.proto";
@@ -8,24 +7,35 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "therealblock/therealblock/params.proto";
 import "therealblock/therealblock/project.proto";
+import "therealblock/therealblock/genesis.proto";
 
 option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
   rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/realblocknetwork/therealblock/therealblock/params";
+    option (google.api.http).get = "/therealblock/params";
+  
   }
   
   // Queries a list of ListProjects items.
   rpc ListProjects (QueryListProjectsRequest) returns (QueryListProjectsResponse) {
-    option (google.api.http).get = "/realblocknetwork/therealblock/therealblock/list_projects";
+    option (google.api.http).get = "/therealblock/list_projects";
+  
   }
   
   // Queries a list of GetProject items.
   rpc GetProject (QueryGetProjectRequest) returns (QueryGetProjectResponse) {
-    option (google.api.http).get = "/realblocknetwork/therealblock/therealblock/get_project/{id}";
+    option (google.api.http).get = "/therealblock/get_project/{id}";
+  
+  }
+  
+  // Queries a list of ListAdmins items.
+  rpc ListAdmins (QueryListAdminsRequest) returns (QueryListAdminsResponse) {
+    option (google.api.http).get = "/therealblock/list_admins";
+  
   }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -33,6 +43,7 @@ message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
@@ -42,8 +53,8 @@ message QueryListProjectsRequest {
 }
 
 message QueryListProjectsResponse {
-  repeated Project                               projects    = 1[(gogoproto.nullable) = false];
-  cosmos.base.query.v1beta1.PageResponse         pagination = 2;
+  repeated Project                                projects   = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse          pagination = 2;
 }
 
 message QueryGetProjectRequest {
@@ -52,5 +63,14 @@ message QueryGetProjectRequest {
 
 message QueryGetProjectResponse {
   Project project = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryListAdminsRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryListAdminsResponse {
+  repeated Account                              accounts   = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse        pagination = 2;
 }
 
