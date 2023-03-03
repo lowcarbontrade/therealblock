@@ -45267,7 +45267,7 @@ paths:
                         }
       tags:
         - Query
-  /therealblock/therealblock/get_project/{id}:
+  /therealblock/get_project/{id}:
     get:
       summary: Queries a list of GetProject items.
       operationId: RealblocknetworkTherealblockTherealblockGetProject
@@ -45389,7 +45389,7 @@ paths:
           format: uint64
       tags:
         - Query
-  /therealblock/therealblock/list_admins:
+  /therealblock/list_admins:
     get:
       summary: Queries a list of ListAdmins items.
       operationId: RealblocknetworkTherealblockTherealblockListAdmins
@@ -45511,7 +45511,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /therealblock/therealblock/list_projects:
+  /therealblock/list_projects:
     get:
       summary: Queries a list of ListProjects items.
       operationId: RealblocknetworkTherealblockTherealblockListProjects
@@ -45714,7 +45714,7 @@ paths:
           type: boolean
       tags:
         - Query
-  /therealblock/therealblock/params:
+  /therealblock/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: RealblocknetworkTherealblockTherealblockParams
