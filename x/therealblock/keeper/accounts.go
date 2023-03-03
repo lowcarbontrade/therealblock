@@ -1,6 +1,7 @@
 package keeper
 
 import (
+	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
 )
@@ -21,23 +22,18 @@ func (k Keeper) GetAdminAccounts(ctx sdk.Context) []types.Account {
 }
 
 func (k Keeper) IsAdminAccount(ctx sdk.Context, address string) bool {
-	accounts := k.GetAdminAccounts(ctx)
-	for _, account := range accounts {
-		if account.Address == address {
-			return true
-		}
-	}
-	return false
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
+	return store.Has(types.KeyPrefix(address))
 }
 
 func (k Keeper) SetAdminAccounts(ctx sdk.Context, accounts []types.Account) {
-	store := ctx.KVStore(k.storeKey)
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
 	for _, account := range accounts {
-		store.Set(types.KeyPrefix(types.GenAccountKey), k.cdc.MustMarshal(&account))
+		store.Set(types.KeyPrefix(account.Address), k.cdc.MustMarshal(&account))
 	}
 }
 
 func (k Keeper) SetAdminAccount(ctx sdk.Context, account types.Account) {
-	store := ctx.KVStore(k.storeKey)
-	store.Set(types.KeyPrefix(types.GenAccountKey), k.cdc.MustMarshal(&account))
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
+	store.Set(types.KeyPrefix(account.Address), k.cdc.MustMarshal(&account))
 }
