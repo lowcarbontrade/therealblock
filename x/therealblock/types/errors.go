@@ -29,4 +29,5 @@ var (
 	ErrNotAdminAccount        = sdkerrors.Register(ModuleName, 1118, "signing address is not an admin account")
 	ErrAdminAccountExists     = sdkerrors.Register(ModuleName, 1119, "admin account already exists")
 	ErrAdminAccountNotSet     = sdkerrors.Register(ModuleName, 1120, "admin account not set")
+	ErrAdminAccountNotDeleted = sdkerrors.Register(ModuleName, 1121, "admin account not deleted")
 )

@@ -18,6 +18,7 @@ service Msg {
   rpc SponsorCancel (MsgSponsorCancel) returns (MsgSponsorCancelResponse);
   rpc SponsorAccept (MsgSponsorAccept) returns (MsgSponsorAcceptResponse);
   rpc AdminAdd      (MsgAdminAdd     ) returns (MsgAdminAddResponse     );
+  rpc AdminDelete   (MsgAdminDelete  ) returns (MsgAdminDeleteResponse  );
 }
 message MsgCreateProject {
            string                   sponsor = 1;
@@ -93,6 +94,15 @@ message MsgAdminAdd {
 }
 
 message MsgAdminAddResponse {
+  string address = 1;
+}
+
+message MsgAdminDelete {
+  string creator = 1;
+  string address = 2;
+}
+
+message MsgAdminDeleteResponse {
   string address = 1;
 }
 

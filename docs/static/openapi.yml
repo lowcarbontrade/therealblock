@@ -75426,6 +75426,11 @@ definitions:
     properties:
       address:
         type: string
+  realblocknetwork.therealblock.therealblock.MsgAdminDeleteResponse:
+    type: object
+    properties:
+      address:
+        type: string
   realblocknetwork.therealblock.therealblock.MsgChangeStateResponse:
     type: object
     properties:

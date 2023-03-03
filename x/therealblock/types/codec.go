@@ -16,6 +16,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgSponsorCancel{}, "therealblock/SponsorCancel", nil)
 	cdc.RegisterConcrete(&MsgSponsorAccept{}, "therealblock/SponsorAccept", nil)
 	cdc.RegisterConcrete(&MsgAdminAdd{}, "therealblock/AdminAdd", nil)
+	cdc.RegisterConcrete(&MsgAdminDelete{}, "therealblock/AdminDelete", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -43,6 +44,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAdminAdd{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgAdminDelete{},
 	)
 	// this line is used by starport scaffolding # 3
 
