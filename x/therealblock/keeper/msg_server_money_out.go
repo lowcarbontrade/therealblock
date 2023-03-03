@@ -13,8 +13,8 @@ func (k msgServer) MoneyOut(goCtx context.Context, msg *types.MsgMoneyOut) (*typ
 	if err != nil {
 		return nil, err
 	}
-	//TODO customize emit event
-	types.EmitEvent(ctx, types.EventTypeMoneyOut, 0, msg.Creator)
+
+	types.EmitEvent(ctx, types.EventTypeMoneyOut, types.ProjectEventProjectCreator, msg.Creator)
 	return &types.MsgMoneyOutResponse{
 		BurnAddr: burnerAddr,
 	}, nil

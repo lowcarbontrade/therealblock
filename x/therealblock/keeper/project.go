@@ -1,13 +1,14 @@
 package keeper
 
 import (
-	sdkmath "cosmossdk.io/math"
 	"encoding/binary"
+	"strconv"
+	"strings"
+
+	sdkmath "cosmossdk.io/math"
 	"github.com/cosmos/cosmos-sdk/store/prefix"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
-	"strconv"
-	"strings"
 )
 
 func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) (uint64, error) {
@@ -102,9 +103,9 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	project.Current = project.Current.Add(investor.Equity)
 	if project.Target.IsEqual(project.Current) {
 		project.State = types.ProjectStatePending
-		types.EmitEvent(ctx, types.EventTypeProjectPending, project.Id, investor.Address)
+		types.EmitEvent(ctx, types.EventTypeProjectPending, types.ProjectEventProjectKey, strconv.FormatUint(project.Id, 10), types.ProjectEventProjectCreator, investor.Address)
 	} else {
-		types.EmitEvent(ctx, types.EventTypeProjectInvested, project.Id, investor.Address)
+		types.EmitEvent(ctx, types.EventTypeProjectInvested, types.ProjectEventProjectKey, strconv.FormatUint(project.Id, 10), types.ProjectEventProjectCreator, investor.Address)
 	}
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
 	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
