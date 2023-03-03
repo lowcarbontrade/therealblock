@@ -26,3 +26,8 @@ validators:
 send_enabled:
   - denom: rbs
     enabled: true
+#genesis: TODO would be nice being able to set genesis accounts here
+#  app_state:
+#    therealblock:
+#      adminAccounts:
+#        - "realblock18njy4mmunlt2dkw283l0x754d4yv6tgdv6nsxc"
