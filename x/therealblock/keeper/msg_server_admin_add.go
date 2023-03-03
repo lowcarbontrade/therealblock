@@ -14,7 +14,6 @@ func (k msgServer) AdminAdd(goCtx context.Context, msg *types.MsgAdminAdd) (*typ
 	if k.IsAdminAccount(ctx, msg.NewAddress) {
 		return nil, types.ErrAdminAccountExists
 	}
-	k.deleteDevAccount(ctx)
 	k.SetAdminAccount(ctx, types.Account{Address: msg.NewAddress})
 	if !k.IsAdminAccount(ctx, msg.NewAddress) {
 		return nil, types.ErrAdminAccountNotSet
@@ -22,12 +21,4 @@ func (k msgServer) AdminAdd(goCtx context.Context, msg *types.MsgAdminAdd) (*typ
 	return &types.MsgAdminAddResponse{
 		Address: msg.NewAddress,
 	}, nil
-}
-
-func (k msgServer) deleteDevAccount(ctx sdk.Context) {
-	k.DeleteAdminAccount(ctx, types.DevAddr)
-	if k.IsAdminAccount(ctx, types.DevAddr) {
-		//TODO research more about panic handling and why might be needed instead of errors
-		panic("Failed to delete dev account")
-	}
 }

@@ -12,7 +12,9 @@ func (k msgServer) AdminDelete(goCtx context.Context, msg *types.MsgAdminDelete)
 	if !k.IsAdminAccount(ctx, msg.Creator) {
 		return nil, types.ErrNotAdminAccount
 	}
-	k.DeleteAdminAccount(ctx, msg.Address)
+	if err := k.DeleteAdminAccount(ctx, msg.Address); err != nil {
+		return nil, err
+	}
 	if k.IsAdminAccount(ctx, msg.Address) {
 		return nil, types.ErrAdminAccountNotDeleted
 	}
