@@ -4,14 +4,14 @@ import sdk "github.com/cosmos/cosmos-sdk/types"
 
 // DefaultIndex is the default global index
 const DefaultIndex uint64 = 1
-const devAddr string = "realblock18njy4mmunlt2dkw283l0x754d4yv6tgdv6nsxc"
+const DevAddr string = "realblock18njy4mmunlt2dkw283l0x754d4yv6tgdv6nsxc"
 
 // DefaultGenesis returns the default genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// this line is used by starport scaffolding # genesis/types/default
 		Params:        DefaultParams(),
-		AdminAccounts: []Account{{Address: devAddr}},
+		AdminAccounts: []Account{{Address: DevAddr}},
 	}
 }
 

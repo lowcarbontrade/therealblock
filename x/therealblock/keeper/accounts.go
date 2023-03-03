@@ -37,3 +37,10 @@ func (k Keeper) SetAdminAccount(ctx sdk.Context, account types.Account) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
 	store.Set(types.KeyPrefix(account.Address), k.cdc.MustMarshal(&account))
 }
+
+func (k Keeper) DeleteAdminAccount(ctx sdk.Context, address string) {
+	if k.IsAdminAccount(ctx, address) {
+		store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
+		store.Delete(types.KeyPrefix(address))
+	}
+}

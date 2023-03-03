@@ -8,6 +8,9 @@ accounts:
   coins:
   - 10000rbs
   - 100000000stake
+- name: admin
+  coins:
+    - 1000000rbs
 - name: dev
   coins:
   - 1000000rbs

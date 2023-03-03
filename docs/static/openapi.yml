@@ -75421,6 +75421,11 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+  realblocknetwork.therealblock.therealblock.MsgAdminAddResponse:
+    type: object
+    properties:
+      address:
+        type: string
   realblocknetwork.therealblock.therealblock.MsgChangeStateResponse:
     type: object
     properties:

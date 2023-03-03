@@ -26,4 +26,7 @@ var (
 	ErrProjectNotPending      = sdkerrors.Register(ModuleName, 1115, "project not in Pending state")
 	ErrInvalidAddress         = sdkerrors.Register(ModuleName, 1116, "invalid address")
 	ErrAccountExists          = sdkerrors.Register(ModuleName, 1117, "account already exists")
+	ErrNotAdminAccount        = sdkerrors.Register(ModuleName, 1118, "signing address is not an admin account")
+	ErrAdminAccountExists     = sdkerrors.Register(ModuleName, 1119, "admin account already exists")
+	ErrAdminAccountNotSet     = sdkerrors.Register(ModuleName, 1120, "admin account not set")
 )
