@@ -3,7 +3,6 @@ package keeper
 import (
 	"context"
 	sdkmath "cosmossdk.io/math"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -56,7 +55,6 @@ func (k Keeper) shareProfit(ctx sdk.Context, projectId uint64, profit sdk.Coin, 
 		}
 		investor.Profit += equity.Int64()
 	}
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
-	store.Set(getProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	k.saveProject(ctx, &project)
 	return project.Id, nil
 }

@@ -40,9 +40,7 @@ func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) (uint64, e
 	project.Current = sdk.NewCoin(project.Target.Denom, sdk.ZeroInt())
 	project.State = types.ProjectStateDraft
 	project.Investors = make([]*types.Investor, 0)
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
-	appendedValue := k.cdc.MustMarshal(&project)
-	store.Set(getProjectIDBytes(project.Id), appendedValue)
+	k.saveProject(ctx, &project)
 	k.setProjectCount(ctx, count+1)
 	return count, nil
 }

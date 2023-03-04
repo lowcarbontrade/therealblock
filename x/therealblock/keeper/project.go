@@ -23,6 +23,11 @@ func (k Keeper) checkStages(stages []*types.Stage, target sdk.Coin) error {
 	return nil
 }
 
+func (k Keeper) saveProject(ctx sdk.Context, project *types.Project) {
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	store.Set(getProjectIDBytes(project.Id), k.cdc.MustMarshal(project))
+}
+
 func getProjectIDBytes(id uint64) []byte {
 	bz := make([]byte, 8)
 	binary.BigEndian.PutUint64(bz, id)

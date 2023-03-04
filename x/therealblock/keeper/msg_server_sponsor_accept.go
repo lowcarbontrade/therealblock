@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
 	"strconv"
 	"strings"
 
@@ -36,8 +35,7 @@ func (k Keeper) sponsorAcceptProject(ctx sdk.Context, projectId uint64, sponsor 
 	if err := k.issueProjectTokens(ctx, &project); err != nil {
 		return 0, err
 	}
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
-	store.Set(getProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	k.saveProject(ctx, &project)
 	return project.Id, nil
 }
 

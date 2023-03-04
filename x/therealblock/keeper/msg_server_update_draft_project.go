@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -36,7 +35,6 @@ func (k Keeper) updateDraftProjectInfo(ctx sdk.Context, projectId uint64, target
 	}
 	project.Target = target
 	project.Stages = stages
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
-	store.Set(getProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	k.saveProject(ctx, &project)
 	return project.Id, nil
 }

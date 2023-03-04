@@ -2,8 +2,6 @@ package keeper
 
 import (
 	"context"
-	"github.com/cosmos/cosmos-sdk/store/prefix"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
 )
@@ -34,7 +32,6 @@ func (k Keeper) changeProjectState(ctx sdk.Context, newState string, projectId u
 		return 0, types.ErrProjectStateNotChanged
 	}
 	project.State = newState
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
-	store.Set(getProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	k.saveProject(ctx, &project)
 	return project.Id, nil
 }
