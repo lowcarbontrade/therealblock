@@ -21,19 +21,6 @@ func (k Keeper) GetAdminAccounts(ctx sdk.Context) ([]types.Account, error) {
 	return accounts, nil
 }
 
-func (k Keeper) GetCountAdminAccounts(ctx sdk.Context) (int64, error) {
-	iterator := sdk.KVStorePrefixIterator(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
-	var count int64
-	for ; iterator.Valid(); iterator.Next() {
-		count++
-	}
-	err := iterator.Close()
-	if err != nil {
-		return 0, err
-	}
-	return count, nil
-}
-
 func (k Keeper) IsAdminAccount(ctx sdk.Context, address string) bool {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
 	return store.Has(types.KeyPrefix(address))
@@ -46,24 +33,4 @@ func (k Keeper) SetAdminAccounts(ctx sdk.Context, accounts []types.Account) {
 			store.Set(types.KeyPrefix(account.Address), k.cdc.MustMarshal(&account))
 		}
 	}
-}
-
-func (k Keeper) SetAdminAccount(ctx sdk.Context, account types.Account) {
-	if !k.IsAdminAccount(ctx, account.Address) {
-		store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
-		store.Set(types.KeyPrefix(account.Address), k.cdc.MustMarshal(&account))
-	}
-}
-
-func (k Keeper) DeleteAdminAccount(ctx sdk.Context, address string) error {
-	adminCount, err := k.GetCountAdminAccounts(ctx)
-	if err != nil {
-		return err
-	}
-	if adminCount == 1 {
-		return types.ErrLastAdminAccount
-	}
-	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.GenAccountKey))
-	store.Delete(types.KeyPrefix(address))
-	return nil
 }

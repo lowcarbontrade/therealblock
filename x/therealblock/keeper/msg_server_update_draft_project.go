@@ -37,6 +37,6 @@ func (k Keeper) updateDraftProjectInfo(ctx sdk.Context, projectId uint64, target
 	project.Target = target
 	project.Stages = stages
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
-	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	store.Set(getProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
 	return project.Id, nil
 }
