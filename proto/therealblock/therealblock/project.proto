@@ -16,11 +16,12 @@ message Project {
 }
 
 message Investor {
-    string                           address = 1;
-    cosmos.base.v1beta1.Coin         equity = 2 [(gogoproto.nullable) = false];
+    string                           address  = 1;
+    cosmos.base.v1beta1.Coin         equity   = 2 [(gogoproto.nullable) = false];
+    int64                            profit   = 3;
 }
 
 message Stage {
-    string                          name = 1;
-    cosmos.base.v1beta1.Coin        allocation = 2 [(gogoproto.nullable) = false];
+    string                          name        = 1;
+    cosmos.base.v1beta1.Coin        allocation  = 2 [(gogoproto.nullable) = false];
 }

@@ -117,9 +117,11 @@ func appendInvestor(investors []*types.Investor, newInvestor *types.Investor) []
 		if strings.Compare(investor.Address, newInvestor.Address) == 0 {
 			found = true
 			investor.Equity = investor.Equity.Add(newInvestor.Equity)
+			investor.Profit -= newInvestor.Equity.Amount.Int64()
 		}
 	}
 	if !found {
+		newInvestor.Profit -= newInvestor.Equity.Amount.Int64()
 		return append(investors, newInvestor)
 	}
 	return investors
