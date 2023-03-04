@@ -15,7 +15,7 @@ func (k Keeper) GetProjectStage(goCtx context.Context, req *types.QueryGetProjec
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	stage, err := k.GetStageInfo(ctx, req.ProjectId)
+	stage, err := k.getStageInfo(ctx, req.ProjectId)
 	if err != nil {
 		return nil, err
 	}
@@ -24,8 +24,8 @@ func (k Keeper) GetProjectStage(goCtx context.Context, req *types.QueryGetProjec
 	}, nil
 }
 
-func (k Keeper) GetStageInfo(ctx sdk.Context, projectId uint64) (types.Stage, error) {
-	project, found := k.GetProjectId(ctx, projectId)
+func (k Keeper) getStageInfo(ctx sdk.Context, projectId uint64) (types.Stage, error) {
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return types.Stage{}, types.ErrProjectNotFound
 	}

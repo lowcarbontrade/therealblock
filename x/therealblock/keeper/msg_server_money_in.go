@@ -15,11 +15,10 @@ func (k msgServer) MoneyIn(goCtx context.Context, msg *types.MsgMoneyIn) (*types
 	if strings.Compare(msg.Amount.Denom, "rbs") != 0 {
 		return nil, types.ErrInvalidDenom
 	}
-	addr, err := k.Mint(ctx, msg.Amount, msg.AddrTo)
+	addr, err := k.mint(ctx, msg.Amount, msg.AddrTo)
 	if err != nil {
 		return &types.MsgMoneyInResponse{}, err
 	}
-	//TODO need more customizable events
 	types.EmitEvent(ctx, types.EventTypeMoneyIn, 0, msg.AddrTo)
 	return &types.MsgMoneyInResponse{
 		AddrTo: addr,

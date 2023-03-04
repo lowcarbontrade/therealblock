@@ -43937,6 +43937,9 @@ paths:
                             the custom method
 
                             signatures required by gogoproto.
+                        profit:
+                          type: string
+                          format: int64
                   stages:
                     type: array
                     items:
@@ -44183,6 +44186,9 @@ paths:
                               the custom method
 
                               signatures required by gogoproto.
+                          profit:
+                            type: string
+                            format: int64
                     stages:
                       type: array
                       items:
@@ -71959,6 +71965,9 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
+      profit:
+        type: string
+        format: int64
   realblocknetwork.therealblock.therealblock.MsgAdminAddResponse:
     type: object
     properties:
@@ -72004,6 +72013,12 @@ definitions:
       projectId:
         type: string
         format: uint64
+  realblocknetwork.therealblock.therealblock.MsgShareProfitResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.MsgSponsorAcceptResponse:
     type: object
     properties:
@@ -72011,6 +72026,12 @@ definitions:
         type: string
         format: uint64
   realblocknetwork.therealblock.therealblock.MsgSponsorCancelResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
+  realblocknetwork.therealblock.therealblock.MsgUpdateDraftProjectResponse:
     type: object
     properties:
       projectId:
@@ -72075,6 +72096,9 @@ definitions:
                 method
 
                 signatures required by gogoproto.
+            profit:
+              type: string
+              format: int64
       stages:
         type: array
         items:
@@ -72162,6 +72186,9 @@ definitions:
                     method
 
                     signatures required by gogoproto.
+                profit:
+                  type: string
+                  format: int64
           stages:
             type: array
             items:
@@ -72310,6 +72337,9 @@ definitions:
                       custom method
 
                       signatures required by gogoproto.
+                  profit:
+                    type: string
+                    format: int64
             stages:
               type: array
               items:

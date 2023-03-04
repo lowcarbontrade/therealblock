@@ -13,7 +13,7 @@ func (k msgServer) MoneyOut(goCtx context.Context, msg *types.MsgMoneyOut) (*typ
 	if strings.Compare(msg.Amount.Denom, "rbs") != 0 {
 		return nil, types.ErrInvalidDenom
 	}
-	burnerAddr, err := k.Burn(ctx, msg.Amount, msg.Creator)
+	burnerAddr, err := k.burn(ctx, msg.Amount, msg.Creator)
 	if err != nil {
 		return nil, err
 	}

@@ -15,7 +15,7 @@ func (k Keeper) GetProject(goCtx context.Context, req *types.QueryGetProjectRequ
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	project, found := k.GetProjectId(ctx, req.Id)
+	project, found := k.getProjectId(ctx, req.Id)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}

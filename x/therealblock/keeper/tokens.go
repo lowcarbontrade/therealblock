@@ -5,7 +5,7 @@ import (
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
 )
 
-func (k Keeper) Mint(ctx sdk.Context, amount sdk.Coin, addrTo string) (string, error) {
+func (k Keeper) mint(ctx sdk.Context, amount sdk.Coin, addrTo string) (string, error) {
 	if !k.bankKeeper.HasSupply(ctx, amount.Denom) {
 		return "", types.ErrCoinNotSupply
 	}
@@ -23,7 +23,7 @@ func (k Keeper) Mint(ctx sdk.Context, amount sdk.Coin, addrTo string) (string, e
 	return addr.String(), nil
 }
 
-func (k Keeper) Burn(ctx sdk.Context, amount sdk.Coin, addrFrom string) (string, error) {
+func (k Keeper) burn(ctx sdk.Context, amount sdk.Coin, addrFrom string) (string, error) {
 	addr, err := sdk.AccAddressFromBech32(addrFrom)
 	if err != nil {
 		return "", err

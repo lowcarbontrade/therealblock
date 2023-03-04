@@ -18,6 +18,8 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgAdminAdd{}, "therealblock/AdminAdd", nil)
 	cdc.RegisterConcrete(&MsgAdminDelete{}, "therealblock/AdminDelete", nil)
 	cdc.RegisterConcrete(&MsgNextStage{}, "therealblock/NextStage", nil)
+	cdc.RegisterConcrete(&MsgShareProfit{}, "therealblock/ShareProfit", nil)
+	cdc.RegisterConcrete(&MsgUpdateDraftProject{}, "therealblock/UpdateDraftProject", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -51,6 +53,12 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgNextStage{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgShareProfit{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateDraftProject{},
 	)
 	// this line is used by starport scaffolding # 3
 
