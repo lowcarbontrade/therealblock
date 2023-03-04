@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
@@ -9,7 +10,10 @@ import (
 
 func (k msgServer) MoneyOut(goCtx context.Context, msg *types.MsgMoneyOut) (*types.MsgMoneyOutResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
-	burnerAddr, err := k.BurnRBS(ctx, msg.Amount, msg.Creator)
+	if strings.Compare(msg.Amount.Denom, "rbs") != 0 {
+		return nil, types.ErrInvalidDenom
+	}
+	burnerAddr, err := k.Burn(ctx, msg.Amount, msg.Creator)
 	if err != nil {
 		return nil, err
 	}
