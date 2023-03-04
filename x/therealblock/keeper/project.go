@@ -225,3 +225,44 @@ func (k Keeper) issueProjectTokens(ctx sdk.Context, project *types.Project) erro
 func getDenomFromProject(projectId uint64) string {
 	return "wRBS-" + strconv.FormatUint(projectId, 10)
 }
+
+func (k Keeper) NextProjectStage(ctx sdk.Context, projectId uint64) (uint64, error) {
+	project, found := k.GetProjectId(ctx, projectId)
+	if !found {
+		return 0, types.ErrProjectNotFound
+	}
+	if project.State != types.ProjectStateFunded {
+		return 0, types.ErrProjectNotFunded
+	}
+	allocation, hasNext := calculateNextStage(project)
+	if hasNext {
+		sponsor, err := sdk.AccAddressFromBech32(project.Sponsor)
+		if err != nil {
+			return 0, err
+		}
+		if err := k.bankKeeper.SendCoinsFromModuleToAccount(ctx, types.ModuleName, sponsor, sdk.NewCoins(allocation)); err != nil {
+			return 0, err
+		}
+		project.Current = project.Current.Sub(allocation)
+	} else {
+		project.State = types.ProjectStateCompleted
+	}
+	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
+	store.Set(GetProjectIDBytes(project.Id), k.cdc.MustMarshal(&project))
+	return project.Id, nil
+}
+
+func calculateNextStage(project types.Project) (sdk.Coin, bool) {
+	var aux = project.Target
+	var found = false
+	for _, stage := range project.Stages {
+		if found {
+			return stage.Allocation, true
+		}
+		aux = aux.Sub(stage.Allocation)
+		if aux.Equal(project.Current) {
+			found = true
+		}
+	}
+	return sdk.NewCoin("end", sdkmath.NewInt(0)), false
+}

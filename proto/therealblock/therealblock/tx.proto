@@ -19,6 +19,7 @@ service Msg {
   rpc SponsorAccept (MsgSponsorAccept) returns (MsgSponsorAcceptResponse);
   rpc AdminAdd      (MsgAdminAdd     ) returns (MsgAdminAddResponse     );
   rpc AdminDelete   (MsgAdminDelete  ) returns (MsgAdminDeleteResponse  );
+  rpc NextStage     (MsgNextStage    ) returns (MsgNextStageResponse    );
 }
 message MsgCreateProject {
            string                   sponsor = 1;
@@ -104,5 +105,14 @@ message MsgAdminDelete {
 
 message MsgAdminDeleteResponse {
   string address = 1;
+}
+
+message MsgNextStage {
+  string creator   = 1;
+  uint64 projectId = 2;
+}
+
+message MsgNextStageResponse {
+  uint64 projectId = 1;
 }
 

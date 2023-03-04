@@ -71942,6 +71942,12 @@ definitions:
     properties:
       burnAddr:
         type: string
+  realblocknetwork.therealblock.therealblock.MsgNextStageResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.MsgSponsorAcceptResponse:
     type: object
     properties:
