@@ -2,18 +2,18 @@ version: 1
 accounts:
 - name: alice
   coins:
-  - 20000rbs
+  - 100rbs
   - 200000000stake
 - name: bob
   coins:
-  - 10000rbs
+  - 100rbs
   - 100000000stake
 - name: admin
   coins:
-    - 1000000rbs
+    - 100rbs
 - name: dev
   coins:
-  - 1000000rbs
+  - 100rbs
   mnemonic: lucky valid identify sun village gloom random purpose draft lamp whale build egg clog cook stage velvet trumpet judge behind collect electric hospital gap
 client:
   openapi:

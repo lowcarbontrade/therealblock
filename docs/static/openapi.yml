@@ -72004,6 +72004,12 @@ definitions:
       projectId:
         type: string
         format: uint64
+  realblocknetwork.therealblock.therealblock.MsgShareProfitResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.MsgSponsorAcceptResponse:
     type: object
     properties:
