@@ -44347,6 +44347,62 @@ paths:
                   additionalProperties: {}
       tags:
         - Query
+  /therealblock/project_stage/{projectId}:
+    get:
+      summary: Queries a list of GetProjectStage items.
+      operationId: RealblocknetworkTherealblockTherealblockGetProjectStage
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              stage:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  allocation:
+                    type: object
+                    properties:
+                      denom:
+                        type: string
+                      amount:
+                        type: string
+                    description: >-
+                      Coin defines a token with a denomination and an amount.
+
+
+                      NOTE: The amount field is an Int which implements the
+                      custom method
+
+                      signatures required by gogoproto.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: projectId
+          in: path
+          required: true
+          type: string
+          format: uint64
+      tags:
+        - Query
 definitions:
   cosmos.auth.v1beta1.AddressBytesToStringResponse:
     type: object
@@ -71942,6 +71998,12 @@ definitions:
     properties:
       burnAddr:
         type: string
+  realblocknetwork.therealblock.therealblock.MsgNextStageResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.MsgSponsorAcceptResponse:
     type: object
     properties:
@@ -72122,6 +72184,29 @@ definitions:
                     method
 
                     signatures required by gogoproto.
+  realblocknetwork.therealblock.therealblock.QueryGetProjectStageResponse:
+    type: object
+    properties:
+      stage:
+        type: object
+        properties:
+          name:
+            type: string
+          allocation:
+            type: object
+            properties:
+              denom:
+                type: string
+              amount:
+                type: string
+            description: >-
+              Coin defines a token with a denomination and an amount.
+
+
+              NOTE: The amount field is an Int which implements the custom
+              method
+
+              signatures required by gogoproto.
   realblocknetwork.therealblock.therealblock.QueryListAdminsResponse:
     type: object
     properties:

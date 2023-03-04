@@ -7,16 +7,16 @@ import (
 	"github.com/realblocknetwork/therealblock/x/therealblock/types"
 )
 
-func (k msgServer) ChangeState(goCtx context.Context, msg *types.MsgChangeState) (*types.MsgChangeStateResponse, error) {
+func (k msgServer) NextStage(goCtx context.Context, msg *types.MsgNextStage) (*types.MsgNextStageResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 	if !k.IsAdminAccount(ctx, msg.Creator) {
 		return nil, types.ErrNotAdminAccount
 	}
-	projectId, err := k.ChangeProjectState(ctx, msg.NewState, msg.ProjectId)
+	projectId, err := k.NextProjectStage(ctx, msg.ProjectId)
 	if err != nil {
-		return &types.MsgChangeStateResponse{}, err
+		return nil, err
 	}
-	return &types.MsgChangeStateResponse{
+	return &types.MsgNextStageResponse{
 		ProjectId: projectId,
 	}, nil
 }

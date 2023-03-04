@@ -37,6 +37,12 @@ service Query {
     option (google.api.http).get = "/therealblock/list_admins";
   
   }
+  
+  // Queries a list of GetProjectStage items.
+  rpc GetProjectStage (QueryGetProjectStageRequest) returns (QueryGetProjectStageResponse) {
+    option (google.api.http).get = "/therealblock/project_stage/{projectId}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -54,7 +60,7 @@ message QueryListProjectsRequest {
 
 message QueryListProjectsResponse {
   repeated Project                                projects   = 1 [(gogoproto.nullable) = false];
-  cosmos.base.query.v1beta1.PageResponse          pagination = 2;
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryGetProjectRequest {
@@ -70,7 +76,15 @@ message QueryListAdminsRequest {
 }
 
 message QueryListAdminsResponse {
-  repeated Account                              accounts   = 1 [(gogoproto.nullable) = false];
-  cosmos.base.query.v1beta1.PageResponse        pagination = 2;
+  repeated Account                                accounts   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetProjectStageRequest {
+  uint64 projectId = 1;
+}
+
+message QueryGetProjectStageResponse {
+  Stage stage = 1 [(gogoproto.nullable) = false];
 }
 
