@@ -14,14 +14,11 @@ func (k Keeper) GetProject(goCtx context.Context, req *types.QueryGetProjectRequ
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
-	//TODO security concerns (make sure everything is secure)
 	ctx := sdk.UnwrapSDKContext(goCtx)
-
 	project, found := k.GetProjectId(ctx, req.Id)
 	if !found {
 		return nil, sdkerrors.ErrKeyNotFound
 	}
-
 	return &types.QueryGetProjectResponse{
 		Project: project,
 	}, nil
