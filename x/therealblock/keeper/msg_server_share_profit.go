@@ -32,6 +32,9 @@ func (k Keeper) shareProfit(ctx sdk.Context, projectId uint64, profit sdk.Coin, 
 	if strings.Compare(project.Sponsor, signer) != 0 {
 		return 0, types.ErrNotProjectSponsor
 	}
+	if len(project.Investors) == 0 {
+		return 0, types.ErrNoInvestors
+	}
 	sponsor, err := sdk.AccAddressFromBech32(project.Sponsor)
 	if err != nil {
 		return 0, err

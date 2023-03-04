@@ -34,4 +34,5 @@ var (
 	ErrLastAdminAccount       = sdkerrors.Register(ModuleName, 1123, "last admin account can not be deleted")
 	ErrInvalidDenom           = sdkerrors.Register(ModuleName, 1124, "invalid denom")
 	ErrProjectNotFunded       = sdkerrors.Register(ModuleName, 1125, "project not in Funded state")
+	ErrNoInvestors            = sdkerrors.Register(ModuleName, 1126, "project has no investors")
 )
