@@ -25,7 +25,7 @@ func (k Keeper) GetProjectStage(goCtx context.Context, req *types.QueryGetProjec
 }
 
 func (k Keeper) GetStageInfo(ctx sdk.Context, projectId uint64) (types.Stage, error) {
-	project, found := k.GetProjectId(ctx, projectId)
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return types.Stage{}, types.ErrProjectNotFound
 	}

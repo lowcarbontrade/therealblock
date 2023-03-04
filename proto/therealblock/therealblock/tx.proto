@@ -10,22 +10,23 @@ option go_package = "github.com/realblocknetwork/therealblock/x/therealblock/typ
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CreateProject (MsgCreateProject) returns (MsgCreateProjectResponse);
-  rpc InvestorBuyIn (MsgInvestorBuyIn) returns (MsgInvestorBuyInResponse);
-  rpc ChangeState   (MsgChangeState  ) returns (MsgChangeStateResponse  );
-  rpc MoneyIn       (MsgMoneyIn      ) returns (MsgMoneyInResponse      );
-  rpc MoneyOut      (MsgMoneyOut     ) returns (MsgMoneyOutResponse     );
-  rpc SponsorCancel (MsgSponsorCancel) returns (MsgSponsorCancelResponse);
-  rpc SponsorAccept (MsgSponsorAccept) returns (MsgSponsorAcceptResponse);
-  rpc AdminAdd      (MsgAdminAdd     ) returns (MsgAdminAddResponse     );
-  rpc AdminDelete   (MsgAdminDelete  ) returns (MsgAdminDeleteResponse  );
-  rpc NextStage     (MsgNextStage    ) returns (MsgNextStageResponse    );
-  rpc ShareProfit   (MsgShareProfit  ) returns (MsgShareProfitResponse  );
+  rpc CreateProject      (MsgCreateProject     ) returns (MsgCreateProjectResponse     );
+  rpc InvestorBuyIn      (MsgInvestorBuyIn     ) returns (MsgInvestorBuyInResponse     );
+  rpc ChangeState        (MsgChangeState       ) returns (MsgChangeStateResponse       );
+  rpc MoneyIn            (MsgMoneyIn           ) returns (MsgMoneyInResponse           );
+  rpc MoneyOut           (MsgMoneyOut          ) returns (MsgMoneyOutResponse          );
+  rpc SponsorCancel      (MsgSponsorCancel     ) returns (MsgSponsorCancelResponse     );
+  rpc SponsorAccept      (MsgSponsorAccept     ) returns (MsgSponsorAcceptResponse     );
+  rpc AdminAdd           (MsgAdminAdd          ) returns (MsgAdminAddResponse          );
+  rpc AdminDelete        (MsgAdminDelete       ) returns (MsgAdminDeleteResponse       );
+  rpc NextStage          (MsgNextStage         ) returns (MsgNextStageResponse         );
+  rpc ShareProfit        (MsgShareProfit       ) returns (MsgShareProfitResponse       );
+  rpc UpdateDraftProject (MsgUpdateDraftProject) returns (MsgUpdateDraftProjectResponse);
 }
 message MsgCreateProject {
-  string                      sponsor = 1;
-  cosmos.base.v1beta1.Coin    target  = 2 [(gogoproto.nullable) = false];
-  repeated Stage              stages  = 3;
+           string                   sponsor = 1;
+           cosmos.base.v1beta1.Coin target  = 2 [(gogoproto.nullable) = false];
+  repeated Stage                    stages  = 3;
 }
 
 message MsgCreateProjectResponse {
@@ -118,12 +119,23 @@ message MsgNextStageResponse {
 }
 
 message MsgShareProfit {
-  string                            creator   = 1;
-  uint64                            projectId = 2;
-  cosmos.base.v1beta1.Coin          amount    = 3 [(gogoproto.nullable) = false];
+  string                   creator   = 1;
+  uint64                   projectId = 2;
+  cosmos.base.v1beta1.Coin amount    = 3 [(gogoproto.nullable) = false];
 }
 
 message MsgShareProfitResponse {
+  uint64 projectId = 1;
+}
+
+message MsgUpdateDraftProject {
+  string                                creator   = 1;
+  uint64                                projectId = 2;
+  cosmos.base.v1beta1.Coin              target    = 4 [(gogoproto.nullable) = false];
+  repeated Stage                        stages    = 5;
+}
+
+message MsgUpdateDraftProjectResponse {
   uint64 projectId = 1;
 }
 

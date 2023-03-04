@@ -35,4 +35,5 @@ var (
 	ErrInvalidDenom           = sdkerrors.Register(ModuleName, 1124, "invalid denom")
 	ErrProjectNotFunded       = sdkerrors.Register(ModuleName, 1125, "project not in Funded state")
 	ErrNoInvestors            = sdkerrors.Register(ModuleName, 1126, "project has no investors")
+	ErrProjectNotDraft        = sdkerrors.Register(ModuleName, 1127, "project not in Draft state")
 )

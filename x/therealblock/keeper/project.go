@@ -16,7 +16,7 @@ func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) (uint64, e
 	if !k.bankKeeper.HasSupply(ctx, project.Target.Denom) {
 		return 0, types.ErrCoinNotSupply
 	}
-	if err := k.checkStages(ctx, project.Stages, project.Target); err != nil {
+	if err := k.checkStages(project.Stages, project.Target); err != nil {
 		return 0, err
 	}
 	project.Current = sdk.NewCoin(project.Target.Denom, sdk.ZeroInt())
@@ -29,7 +29,7 @@ func (k Keeper) AppendProject(ctx sdk.Context, project types.Project) (uint64, e
 	return count, nil
 }
 
-func (k Keeper) checkStages(ctx sdk.Context, stages []*types.Stage, target sdk.Coin) error {
+func (k Keeper) checkStages(stages []*types.Stage, target sdk.Coin) error {
 	var total = sdkmath.NewInt(0)
 	for _, stage := range stages {
 		if strings.Compare(target.Denom, stage.Allocation.Denom) != 0 {
@@ -64,7 +64,7 @@ func GetProjectIDBytes(id uint64) []byte {
 	return bz
 }
 
-func (k Keeper) GetProjectId(ctx sdk.Context, id uint64) (val types.Project, found bool) {
+func (k Keeper) getProjectId(ctx sdk.Context, id uint64) (val types.Project, found bool) {
 	store := prefix.NewStore(ctx.KVStore(k.storeKey), types.KeyPrefix(types.ProjectKey))
 	b := store.Get(GetProjectIDBytes(id))
 	if b == nil {
@@ -78,7 +78,7 @@ func (k Keeper) AppendInvestorBuyIn(ctx sdk.Context, id uint64, investor types.I
 	if investor.Equity.Amount.Equal(sdk.ZeroInt()) {
 		return "", types.ErrCoinZeroAmount
 	}
-	project, found := k.GetProjectId(ctx, id)
+	project, found := k.getProjectId(ctx, id)
 	if !found {
 		return "", types.ErrProjectNotFound
 	}
@@ -131,7 +131,7 @@ func (k Keeper) ChangeProjectState(ctx sdk.Context, newState string, projectId u
 	if err := types.IsValidState(newState); err != nil {
 		return 0, err
 	}
-	project, found := k.GetProjectId(ctx, projectId)
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return 0, types.ErrProjectNotFound
 	}
@@ -145,7 +145,7 @@ func (k Keeper) ChangeProjectState(ctx sdk.Context, newState string, projectId u
 }
 
 func (k Keeper) SponsorCancelProject(ctx sdk.Context, projectId uint64, sponsor string) (uint64, error) {
-	project, found := k.GetProjectId(ctx, projectId)
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return 0, types.ErrProjectNotFound
 	}
@@ -181,7 +181,7 @@ func (k Keeper) returnFundsCancel(ctx sdk.Context, project *types.Project) error
 }
 
 func (k Keeper) SponsorAcceptProject(ctx sdk.Context, projectId uint64, sponsor string) (uint64, error) {
-	project, found := k.GetProjectId(ctx, projectId)
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return 0, types.ErrProjectNotFound
 	}
@@ -229,7 +229,7 @@ func getDenomFromProject(projectId uint64) string {
 }
 
 func (k Keeper) NextProjectStage(ctx sdk.Context, projectId uint64) (uint64, error) {
-	project, found := k.GetProjectId(ctx, projectId)
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return 0, types.ErrProjectNotFound
 	}

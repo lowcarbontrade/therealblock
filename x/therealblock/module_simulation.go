@@ -68,6 +68,10 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgShareProfit int = 100
 
+	opWeightMsgUpdateDraftProject = "op_weight_msg_update_draft_project"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateDraftProject int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -221,6 +225,17 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgShareProfit,
 		therealblocksimulation.SimulateMsgShareProfit(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateDraftProject int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateDraftProject, &weightMsgUpdateDraftProject, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateDraftProject = defaultWeightMsgUpdateDraftProject
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateDraftProject,
+		therealblocksimulation.SimulateMsgUpdateDraftProject(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

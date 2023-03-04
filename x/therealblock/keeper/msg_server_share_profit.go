@@ -25,7 +25,7 @@ func (k msgServer) ShareProfit(goCtx context.Context, msg *types.MsgShareProfit)
 }
 
 func (k Keeper) shareProfit(ctx sdk.Context, projectId uint64, profit sdk.Coin, signer string) (uint64, error) {
-	project, found := k.GetProjectId(ctx, projectId)
+	project, found := k.getProjectId(ctx, projectId)
 	if !found {
 		return 0, types.ErrProjectNotFound
 	}

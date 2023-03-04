@@ -72031,6 +72031,12 @@ definitions:
       projectId:
         type: string
         format: uint64
+  realblocknetwork.therealblock.therealblock.MsgUpdateDraftProjectResponse:
+    type: object
+    properties:
+      projectId:
+        type: string
+        format: uint64
   realblocknetwork.therealblock.therealblock.Params:
     type: object
     description: Params defines the parameters for the module.
